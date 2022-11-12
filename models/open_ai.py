@@ -46,7 +46,10 @@ class OpenAPI:
             - vary depending on the length of the text?
             - set to specific number?
             - vary based on information density of text? - https://towardsdatascience.com/linguistic-complexity-measures-for-text-nlp-e4bf664bd660
+            
+        
         """
+        assert summary_prompt in [0, 1, 2, 3], "Invalid summary prompt"
         if summary_prompt == 0:
             prompt = "Summarize the following text: \n\n" + text
         elif summary_prompt == 1:
@@ -61,11 +64,11 @@ class OpenAPI:
         response = openai.Completion.create(
             model=self.SUMMARY_MODEL,
             prompt=prompt,
-            max_tokens=max_resp_tokens,
-            temperature=0.7,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
+            max_tokens=max_resp_tokens, # max tokens to return
+            temperature=0.7,            # temperature represents how random the model is
+            top_p=1,                    # top_p represents how much to sample from the top of the distribution
+            frequency_penalty=0,        # frequency_penalty represents how much to penalize new tokens based on their existing frequency
+            presence_penalty=0          # presence_penalty represents how much to penalize new tokens based on whether they appear in the text so far
             )
         return response.choices[0].text
     
