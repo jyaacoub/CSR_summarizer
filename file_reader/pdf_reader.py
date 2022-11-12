@@ -1,5 +1,5 @@
 from PyPDF2 import PdfReader, PdfFileReader, PdfFileWriter
-#from common/constants.py import *
+from common.constants import PDF_PATH
 
 GOOGLE_CSR = "file_reader/google-2022-environmental-report.pdf" #import Google CSR file, update the path to constants.py later
 pdf = PdfFileReader(GOOGLE_CSR)
