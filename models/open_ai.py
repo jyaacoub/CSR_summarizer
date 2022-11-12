@@ -76,11 +76,11 @@ class OpenAPI:
         if summary_prompt == 0:
             prompt = "Summarize the following text: \n\n" + text + "\n"
         elif summary_prompt == 1:
-            prompt = text + "\ntd;dr:\n"
+            prompt = text + "\ntl;dr:\n" # most consitent results (no bullet points when told to)
         elif summary_prompt == 2:
-            prompt = text + "\nSummary:\n"
+            prompt = text + "\nSummary:\n" # this prompt sucks and tends to just make up stuff
         elif summary_prompt == 3:
-            prompt = text + "\nSummary of the above text:\n"
+            prompt = text + "\nSummary of the above text:\n" # second best but sometimes forces bullet points
             
         if bullet_points:
             prompt += "\n-"
@@ -102,6 +102,16 @@ class OpenAPI:
             presence_penalty=0.2        # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
             )
         return '-' + response.choices[0].text if bullet_points else response.choices[0].text
+    
+    def summarize_text_corpus(self, text_corpus,max_resp_tokens=256, summary_prompt=0, bullet_points=False,
+                        temperature=0.7,   
+                        top_p=1,           
+                        frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
+                        presence_penalty=0.2):
+        """
+        Gets text summaries for multiple documents in a single query for efficiency
+        """
+        pass    
     
     def _chunk_text(self, text, chunk_size=MAX_TOKENS_DAVIN2):
         """Splits text into chunks of size chunk_size"""

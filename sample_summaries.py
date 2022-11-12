@@ -38,7 +38,7 @@ with tqdm(total=8) as pbar:
         samples.append((resT, resF))
 
 # %%
-with open("data/sample_summaries.txt", "w", encoding="utf-8") as f:
+with open("data/CSR_samples/sample_summaries_p12.txt", "w", encoding="utf-8") as f:
     for i, sample in enumerate(samples):
         f.write(f"Prompt {i}")
         f.write(f"\n{sample[0]}\n")
