@@ -20,19 +20,41 @@ Considerations for model chosen and setup:
     they relate to a query."                                                                            - OpenAI docs
 """
 
-from common.SECRETS import OPEN_AI_API_KEY
+import math
+from common.SECRETS import API_KEY
+
 import openai
 
 
 class OpenAPI:
     SUMMARY_MODEL = "text-davinci-002" # model to use for summarization
-    MAX_TOKENS_DAVIN2 = 4000 # max tokens for davinci-002 is 4,000
-    
-    def __init__(self, api_key=OPEN_AI_API_KEY):
+    MAX_TOKENS_DAVIN2 = 4000 # max tokens for davinci-002 is 4,000 - https://beta.openai.com/docs/models/gpt-3
+                             # this includes the prompt
+    TOKENS_PER_CHAR = 4.45 # one token is roughly 4 characters
+    def __init__(self, api_key=API_KEY):
         self.api_key = api_key
-        self.openai.api_key = api_key
+        openai.api_key = api_key
+        self.tokenizer = None
     
-    def summarize_text(self, text, max_resp_tokens=256, summary_prompt=0):
+    def get_token_count(self, text, exact=True): # non-static method so that we dont load the tokenizer multiple times
+        """
+            Returns the number of tokens in text
+            using heuristic of 4.45 tokens per character is a decent approximation
+        """
+        if exact:
+            if self.tokenizer is None: # lazy load tokenizer because it takes a while
+                from transformers import GPT2Tokenizer
+                self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+            res = self.tokenizer(text)
+            return len(res["input_ids"])
+        else:
+            return math.ceil(len(text)/self.TOKENS_PER_CHAR) # one token is roughly 4 characters
+    
+    def summarize_text(self, text, max_resp_tokens=256, summary_prompt=0, bullet_points=False,
+                        temperature=0.7,   
+                        top_p=1,           
+                        frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
+                        presence_penalty=0.2): # increases the number of topics covered in the summary
         """ 
         Simple function that takes string input and returns a summary of the text via OpenAI's API 
         
@@ -42,35 +64,44 @@ class OpenAPI:
             2 - "<text> \nSummary:"
             3 - "<text> \nSummary of the above text:"
             
+        We can also specify if we want it as a bulleted list:
+            
         We can also vary the max tokens to be returned (this needs to be tuned as to not miss out important technical details)
             - vary depending on the length of the text?
             - set to specific number?
             - vary based on information density of text? - https://towardsdatascience.com/linguistic-complexity-measures-for-text-nlp-e4bf664bd660
-            
         
         """
         assert summary_prompt in [0, 1, 2, 3], "Invalid summary prompt"
         if summary_prompt == 0:
-            prompt = "Summarize the following text: \n\n" + text
+            prompt = "Summarize the following text: \n\n" + text + "\n"
         elif summary_prompt == 1:
-            prompt = text + "\ntd;dr:"
+            prompt = text + "\ntd;dr:\n"
         elif summary_prompt == 2:
-            prompt = text + "\nSummary:"
+            prompt = text + "\nSummary:\n"
         elif summary_prompt == 3:
-            prompt = text + "\nSummary of the above text:"
+            prompt = text + "\nSummary of the above text:\n"
+            
+        if bullet_points:
+            prompt += "\n-"
         
+        # ensuring prompt + max_resp_tokens does not exceed max tokens for davinci-002
+        num_tokens_prompt = self.get_token_count(prompt)
+        total_tokens = num_tokens_prompt + max_resp_tokens
+        assert total_tokens < self.MAX_TOKENS_DAVIN2, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
+                                                        (prompt: {num_tokens_prompt}, max_resp_tokens: {max_resp_tokens})"
         
         # Checks text size, returns error if larger than max tokens
         response = openai.Completion.create(
             model=self.SUMMARY_MODEL,
             prompt=prompt,
-            max_tokens=max_resp_tokens, # max tokens to return
-            temperature=0.7,            # temperature represents how random the model is
-            top_p=1,                    # top_p represents how much to sample from the top of the distribution
-            frequency_penalty=0,        # frequency_penalty represents how much to penalize new tokens based on their existing frequency
-            presence_penalty=0          # presence_penalty represents how much to penalize new tokens based on whether they appear in the text so far
+            max_tokens=total_tokens,    # max tokens to return
+            temperature=0.7,            # temperature represents how random the result is (1.0 is deterministic)
+            top_p=1,                    # top_p represents how much to sample from the top of the distribution (controls diversity, 0.5 excludes 50% of the distribution)
+            frequency_penalty=0.07,     # frequency_penalty represents how much to penalize new tokens based on their existing frequency (decreases likelihood of repeating words)
+            presence_penalty=0.2        # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
             )
-        return response.choices[0].text
+        return '-' + response.choices[0].text if bullet_points else response.choices[0].text
     
     def _chunk_text(self, text, chunk_size=MAX_TOKENS_DAVIN2):
         """Splits text into chunks of size chunk_size"""
