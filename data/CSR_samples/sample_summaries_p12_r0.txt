@@ -1,0 +1,44 @@
+Prompt 0
+
+The table includes environmental data for Alphabet Inc.'s global operations, including data centers, offices, networking infrastructure, and other facilities. The data covers Alphabet Inc. and its subsidiaries, including Google LLC. All reported data is global and annual unless otherwise specified. Alphabet Inc. obtains third-party assurance from an independent, accredited auditor for specific environmental data as part of its Independent Accountants' Review.
+	--------------------
+-The table provides an overview of the company's environmental performance over time. 
+-The data covers Alphabet Inc. and its subsidiaries, including Google LLC. 
+-The data is global and annual unless otherwise specified. 
+-The company obtains third-party assurance from an independent, accredited auditor for specific environmental data as part of its Independent Accountants' Review. 
+-For more information on the company's energy use and GHG emissions, see Alphabet's CDP Climate Change Response on Google's sustainability reports.
+####################
+Prompt 1
+
+Alphabet Inc. and its subsidiaries are committed to reducing their environmental impact, and have made significant progress in recent years. They continue to invest in renewable energy and other clean technologies, as well as in measures to improve the efficiency of their operations.
+	--------------------
+-Alphabet Inc. (including Google LLC) reports environmental data globally and annually
+-The majority of environmental data covers Alphabet Inc. and its subsidiaries
+-Third-party assurance is obtained for select environmental data metrics from an independent, accredited auditor
+####################
+Prompt 2
+
+-Alphabet Inc. and its subsidiaries, including Google LLC, are committed to reducing their environmental impact.
+-The company has set goals to be powered by 100% renewable energy and to achieve zero waste to landfill from their operations.
+-Alphabet Inc. and its subsidiaries have made progress towards these goals, with 58% of their global operations powered by renewable energy in 2019 and a 61% reduction in waste to landfill since 2017.
+-The company has also been investing in technology and projects beyond their operations to help reduce environmental impact, such as their investment in the development of the world’s first carbon-free ship.
+	--------------------
+-Alphabet’s global operations emitted an estimated 1.5 million metric tons of carbon dioxide equivalent in 2019. This accounted for approximately 0.14% of global emissions that year.
+
+-In 2019, our data centers used an average of 1,213 kWh of electricity per server.
+
+-We’ve been investing in renewable energy since 2010, and to date we’ve committed more than $8 billion in 22 projects around the world.
+
+-Our offices and other facilities are powered by 100% renewable energy.
+####################
+Prompt 3
+
+-Alphabet Inc. and its subsidiaries, including Google LLC, report their environmental data globally and annually.
+-The data reported includes environmental data for their global operations (including data centers, offices, networking infrastructure, and other facilities) and data beyond their operations (including investments and technology).
+-The majority of the environmental data covers Alphabet Inc. and its subsidiaries, including Google LLC.
+-Select GHG emissions, energy, and water metrics are obtained from an independent, accredited auditor as part of Alphabet’s Independent Accountants’ Review.
+	--------------------
+-Alphabet Inc. and its subsidiaries (including Google LLC) are committed to reducing their environmental impact.
+-The company has a goal to be powered by 100% renewable energy, and all reported data is global and annual.
+-Alphabet Inc. and its subsidiaries obtain third-party assurance from an independent, accredited auditor for specific environmental data, including select GHG emissions, energy, and water metrics.
+####################
