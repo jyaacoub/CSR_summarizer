@@ -2,6 +2,12 @@
 A tool to extract meaningful information from long CSR reports.
 
 
+# file structure
+- *common*: folder for all common variables such as api keys
+  - `SECRETS.py`: file containing secrete keys (DO NOT COMMIT THIS; added to gitignore)
+  - 
+
+
 # Tasks
 - `PDFReader` class: to read in PDF and get sections
   - Get sections from outline metadata
