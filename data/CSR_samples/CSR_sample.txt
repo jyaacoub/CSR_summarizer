@@ -1,0 +1,870 @@
+Page 1
+----------------------------------------------------------------------------------------------------
+Environmental 
+Report
+2022
+
+
+Page 2
+----------------------------------------------------------------------------------------------------
+Table of contents
+1	 About	this	report
+2 Our approach
+5	 Performance	highlights
+8	 Progress	against	targets
+11	 Environmental	data
+14	 Appendix
+ Endnotes
+ Glossary
+About this report
+Google’s 2022 Environmental Report features data, performance highlights, 
+and progress against our targets from our 2021 fiscal year (January 1 to 
+December 31, 2021). It also mentions notable targets set in 2022. 
+This report outlines how we’re driving positive environmental impact 
+throughout our business in five key ways: designing efficient data centers, 
+advancing carbon-free energy, creating sustainable workplaces, building 
+better devices and services, and empowering users with technology.
+For more information about our sustainability strategy, see Google’s 
+Sustainability  website and sustainability reports  page. For more information 
+about our overall corporate responsibility initiatives, see Google’s 
+commitments , as well as sustainability and related information . For more 
+information about our business, see the About Google  and Alphabet Investor  
+Relations  websites.
+1
+Google Environmental Report 2022
+
+
+Page 3
+----------------------------------------------------------------------------------------------------
+Our approach
+We believe that every business has the opportunity and obligation to protect 
+our planet. Sustainability is one of our core values at Google, and we strive  
+to build sustainability into everything we do.
+We’ve been a leader on sustainability and climate change since Google’s 
+founding over 20 years ago. These are some of our key achievements over 
+the past two decades:
+2007:	We	became	the	 first	major	company	to	be	carbon	neutral	 for	our	operations.
+2017:	We	became	the	 first	major	company	to	match	100%	of	our	annual	electricity 	
+use	with	renewable	energy,			 which	we’ve	achieved	 for	five	consecutive	years.
+2020:	We	issued	$5.75	billion	in	 sustainability	bonds —the	largest	sustainability 	 
+or	green	bond	issuance	by	any	company	in	history	at	the	time.
+2021:	We	matched	66%	of	our	data	center	electricity	use	with	regional 	 
+carbon-free	sources,	on	an	hourly	basis.
+Our sustainability strategy is focused on three key pillars: accelerating 
+the transition to carbon-free energy and a circular economy, empowering 
+everyone with technology, and benefiting the people and places where we 
+operate (see Figure 1).
+Figure	1	
+SUSTAINABILITY STRATEGY OVERVIEW
+We strive to build sustainability into everything we do
+Empower	with	  
+technology
+Tackle major sustainability problems 
+and drive net-positive impact using 
+Google technologies, platforms, 
+products, and servicesAccelerate	carbon-free	  
+and	circular	
+Decouple business growth  
+from the growth of carbon  
+intensity and material use Benefit	people	  
+and	places
+Share benefits with the  
+communities of our facilities,  
+users, partners, and suppliers
+2
+Google Environmental Report 2022
+
+
+Page 4
+----------------------------------------------------------------------------------------------------
+Accelerating carbon-free and circular
+To accelerate the transition to a carbon-free and circular economy, in 2020, 
+we launched our third decade of climate action , and we’re now working 
+toward a new set of ambitious goals. By 2030, we aim to:
+Achieve	 net-zero	emissions 	across	all	of	our	operations	and	value	chain, 	 
+including	our	consumer	hardware	products
+Become	the	 first	major	company	to	run	on	 carbon-free	energy 	24	hours	a	day, 	
+seven	days	a	week,	365	days	a	year
+Enable	5	gigawatts	of	new	carbon-free	energy	through	investments	in	our	key 	
+manufacturing	regions
+Help	more	than	500	cities	and	local	governments	reduce	an	aggregate	of 	 
+1	gigaton	of	carbon	emissions	annually
+We also aim to maximize the reuse of finite resources  across our operations, 
+products, and supply chains and to enable others to do the same.
+As part of our goal to achieve net-zero emissions across all of our operations 
+and value chain by 2030, we aim to reduce the majority of our  emissions 
+(versus our 2019 baseline) before 2030 and plan to invest in nature-based 
+and technology-based carbon removal solutions to neutralize our remaining 
+emissions.  We know this will be a challenging journey and we expect our 
+progress toward this goal to be nonlinear. While our total GHG emissions 
+increased from 2020 to 2021, we’re committed to achieving GHG reductions 
+throughout our operations and value chain.
+3
+Google Environmental Report 2022
+
+
+Page 5
+----------------------------------------------------------------------------------------------------
+Empowering everyone with technology
+To empower everyone with technology, we’ve committed to help 1 billion 
+people make more sustainable choices by the end of 2022 through our core 
+products. We introduced eco-friendly routing in Google Maps, new features  
+to book flights or purchase appliances that have lower carbon footprints, 
+and Nest Renew, a program to support clean energy from home. And when 
+people come to Google Search with questions about climate change, we 
+show information from authoritative sources like the United Nations.
+Benefiting people and places
+To benefit the people and places where we operate, we’ve set goals to 
+replenish more water than we consume  by 2030 and to support water security 
+in communities where we operate. We’re focused on three areas: enhancing 
+our stewardship of water resources across Google offices and data centers; 
+replenishing our water use and improving watershed health and ecosystems 
+in water-stressed communities; and sharing technology and tools that help 
+everyone predict, prevent, and recover from water stress.
+At Google, we remain steadfast in our commitment to sustainability , and we’ll 
+continue to lead and encourage others to join us in improving the health of our 
+planet. We’re proud of what we’ve achieved so far, and we’re energized to help 
+move the world closer to a more sustainable and carbon-free future for all.
+4
+Google Environmental Report 2022
+
+
+Page 6
+----------------------------------------------------------------------------------------------------
+Performance highlights
+The following section provides a snapshot of our performance as of the end 
+of 2021—demonstrating how we’re strengthening our business by reducing 
+the environmental impact of our operations and working to empower people 
+everywhere to live more sustainably. 
+For a more complete overview of our performance over time, see the 
+environmental data table .
+DESIGNING EFFICIENT DATA CENTERS
+Energy GHG	emissions
+2X  
+as	energy	efficient
+On average, a Google data center  
+is twice as energy efficient as a 
+typical enterprise data center.1 5X  
+as	much	computing	power
+Compared with five years ago,  
+we now deliver around five times 
+as much computing power with the 
+same amount of electrical power.1.10   
+average	annual	PUE
+In 2021, the average annual PUE2  
+for our global fleet of data centers 
+was 1.10, compared with the industry 
+average of 1.573—meaning that 
+Google data centers use about  
+six times less overhead energy.0  
+operational	 GHG	emissions 	
+after	compensations
+Whether someone is using Google 
+at home or as part of an organization 
+running Google Cloud or Google 
+Workspace, all products in our Cloud 
+are carbon neutral—meaning that 
+the operational GHG emissions 
+associated with running workloads  
+on our infrastructure have been 
+reduced through procurement of 
+renewable energy and any residual 
+emissions have been compensated  
+for with high-quality carbon credits.4 
+Waste
+78%  
+of	waste	diverted
+In 2021, we diverted 78% of waste 
+from our global data center 
+operations away from landfills.27%  
+of	components	refurbished
+In 2021, 27% of components  
+used for server upgrades were 
+refurbished inventory.4.9	million	  
+components	resold
+In 2021, we resold more than 
+4.9 million components into the 
+secondary market for reuse by  
+other organizations. 
+5
+Google Environmental Report 2022
+
+
+Page 7
+----------------------------------------------------------------------------------------------------
+ADVANCING	CARBON-FREE	ENERGY
+Energy Investment
+7 GW  
+of	renewable	energy
+From 2010 to 2021, we signed  
+more than 60 agreements  
+totaling more than 7 GW of 
+renewable energy. Over that  
+period, we’ve committed 
+approximately $6 billion  
+to purchase clean energy  
+from wind and solar projects  
+globally through 2040.5 100 %  
+renewable	energy
+In 2021, we matched 100%  
+of the electricity consumption of  
+our operations with renewable 
+energy purchases for the fifth 
+consecutive year.73	million	MWh	  
+of	renewable	energy
+Over the past decade, Google  
+purchased more renewable  
+energy than any other company.6  
+From 2010 to 2021, we purchased  
+a total of more than 73 million MWh  
+of renewable energy through PPAs, 
+via on-site generation, and from  
+the electric grids where our  
+facilities are located.7$3.3 billion	  
+in	investment  
+commitments
+From 2010 to 2021, we made 
+commitments to invest nearly  
+$3.3 billion in renewable energy 
+projects with an expected combined 
+capacity of approximately 8.7 GW. 
+These targeted investments  
+go beyond our purchases of  
+renewable energy for our  
+own operational footprint.
+GHG	emissions
+65%  
+cumulative	 GHG	  
+emissions	reduction
+From 2011 to 2021, our renewable 
+energy purchasing resulted in a 
+cumulative 65% reduction in our 
+Scope 1 and Scope 2 emissions, as 
+compared with a business-as-usual 
+scenario in which we didn’t procure 
+renewable energy via PPAs.81%  
+decrease 	 
+in	carbon	intensity
+From 2011 to 2021, our carbon 
+intensity per unit of revenue  
+decreased by 81%.15	years	  
+of	carbon	neutrality
+Google has been carbon neutral  
+for our operations since 2007. 
+Because of our purchases  
+of renewable energy and  
+procurement of high-quality  
+carbon credits, we have 
+compensated for all our  
+operational GHG emissions.
+CREATING SUSTAINABLE WORKPLACES
+Certifications Waste Ecology
+18 million	ft2  
+LEED-certified
+From 2009 to 2021, over  
+1.7 million m2 (18 million ft2)  
+of Google office facilities  
+achieved LEED certification.26%  
+LEED	Platinum
+26% of our LEED-certified square 
+footage has achieved a Platinum 
+rating and 60% a Gold rating.64%  
+landfill	diversion
+In 2021, we reached a 64% landfill 
+diversion rate for waste from  
+our offices globally.15  acres  
+of	native	habitat	on 	 
+our	Bay	 Area	campuses
+From 2014 to 2021, we restored and 
+created 15 acres of native habitat on 
+our Bay Area campuses to support 
+wildlife and our communities.
+Commuting
+4,000   
+EV	charging	ports	  
+at	our	offices
+We have nearly 4,000 EV  
+charging ports at our offices  
+in the United States and Canada.
+6
+Google Environmental Report 2022
+
+
+Page 8
+----------------------------------------------------------------------------------------------------
+BUILDING BETTER DEVICES AND SERVICES
+GHG	emissions 	 Energy
+100 %  
+of	shipments	are	  
+carbon	neutral	
+All shipments of Google  
+consumer hardware products  
+to and from direct customers  
+are carbon neutral and have  
+been since 2019.8 86	billion	kWh	  
+of	energy	savings
+From 2011 to 2021, Nest  
+thermostats helped customers 
+cumulatively save more than  
+86 billion kWh of energy—  
+enough to power all of  
+San Francisco’s electricity  
+consumption for over 17 years.21	billion	kWh	  
+of	energy	savings
+In 2021 alone, Nest thermostats 
+helped customers save more than  
+21 billion kWh of energy—more 
+energy than Google used in 2021.10%–15%  
+energy	savings
+On average, Nest thermostats  
+have proven energy savings of  
+10%–12% for heating and 15% for 
+cooling,9 which means they can pay  
+for themselves in under two years.10 
+Materials Waste
+100 %  
+of	Nest	and	Pixel	devices	
+contain	recycled	materials
+All Nest and Pixel devices  
+launched since 2020 include  
+recycled materials.11 100 %  
+recycled	aluminum	  
+in	the	housing	of	the	  
+Pixel	6	and	Pixel	6	Pro
+Pixel 6 and Pixel 6 Pro are  
+designed with recycled aluminum  
+to reduce their carbon footprint.  
+The aluminum in the housing  
+is 100% recycled content.12 100 %  
+of	countries	with	  
+take-back	programs
+In 2021, we offered our take-back 
+program in all countries where we 
+ship Google consumer hardware 
+products, allowing customers to 
+responsibly recycle old and unused 
+devices for free—whether made  
+by Google or not.
+EMPOWERING	USERS	WITH	TECHNOLOGY
+Products Tools
+1	billion	km	  
+of	transit	results	  
+on	Google	Maps
+Google Maps provides, on  
+average, more than 1 billion 
+kilometers’ (621 million miles’)  
+worth of transit results per day, 
+helping to limit carbon emissions  
+by giving people access to mass 
+transit options, bike routes,  
+and traffic information.200,000  
+EV	charging	locations	  
+on	Google	Maps
+By the end of 2021, Google Maps 
+contained nearly 200,000 EV 
+charging locations globally. 42,000   
+cities	and	regions	  
+on	Environmental	  
+Insights	Explorer
+By the end of 2021, nearly 42,000 
+cities and regions worldwide were 
+covered by the Environmental 
+Insights Explorer, a tool that 
+empowers city planners and 
+policymakers with actionable data  
+to help reduce global emissions.52	petabytes	  
+of	freely	available	  
+geospatial 	data
+Earth Engine has enabled tens  
+of thousands of active users  
+around the world to easily  
+analyze over 52 petabytes13  
+of freely available geospatial 
+information, resulting in a deeper 
+understanding of the planet.
+Programs
+€10million	  
+Google.org	Impact	  
+Challenge	on	 Climate
+In 2021, 11 organizations across 
+Europe were selected to receive 
+Google.org funding via the Impact 
+Challenge on Climate, which 
+provided €10 million to fund bold 
+ideas that use technology to 
+accelerate Europe’s progress toward 
+a greener, more resilient future.
+7
+Google Environmental Report 2022
+
+
+Page 9
+----------------------------------------------------------------------------------------------------
+DESIGNING EFFICIENT DATA CENTERS 
+Target Deadline 2021	progress Status
+Energy
+Maintain or improve average annual fleet-wide  
+PUE across Google data centers year over year.2021 
+(Annual)In 2021, the average annual PUE for our global fleet  
+of data centers was 1.10. Since 2012, our average annual  
+fleet-wide PUE has stayed at or below 1.12, even as 
+demand for our products has dramatically risen.
+Certifications
+Maintain ISO 50001 energy management system 
+certification for Google-owned data centers  
+that meet certain operational milestones.2021 
+(Annual)In 2021, we maintained our ISO 50001 certification for  
+our operational European data centers. We were the  
+first major internet company to achieve a multi-site  
+energy management system certification to ISO 50001, 
+which we first attained in 2013.
+Waste
+Achieve Zero Waste to Landfill for our global  
+data center operations.Not 
+applicableIn 2021, our global landfill diversion rate for data center 
+operations was 78%.
+Water
+Replenish 120% of the water we consume,  
+on average, across our offices and data centers,  
+and help restore and improve the quality of  
+water and health of ecosystems in the  
+communities where we operate.2030 We’re working toward this target. By the end  
+of 2021, we had supported 13 water stewardship 
+projects spanning 10 river basins where we operate 
+and/or source water. Examples of these projects 
+include wetland restoration, rainwater harvesting,  
+and land conservation.Progress against targets
+As a data-driven company, we believe it is critical to regularly track progress 
+toward our commitments and share updates with our stakeholders. The 
+following section provides an overview of our 2021 progress toward our 
+various environmental targets. 
+For a more complete overview of our performance over time, see the 
+environmental data table .
+Achieved Missed In progress
+8
+Google Environmental Report 2022
+
+
+Page 10
+----------------------------------------------------------------------------------------------------
+ADVANCING	CARBON-FREE	ENERGY
+Target Deadline 2021	progress Status
+Energy
+Match 100% of the electricity consumption of our 
+operations with renewable energy purchases.2021 
+(Annual)In 2021, we purchased enough renewable energy, from 
+sources such as wind and solar, to match 100% of the 
+electricity consumption of our data centers and offices. 
+We were the first company of our size to reach this 
+milestone back in 2017, and we’ve achieved it for five 
+consecutive years.14 
+Operate on carbon-free energy 24/7 by 2030. 2030 In 2021, on an hourly basis, 66% of our data  
+center electricity use was matched with regional  
+carbon-free sources.15
+Enable 5 GW of new carbon-free energy through 
+investments in our key manufacturing regions by 2030.2030 We’re working toward this target.
+GHG	emissions
+Achieve net-zero emissions across all of  
+our operations and value chain, including our  
+consumer hardware products, by 2030.2030 We’re working toward this target. We aim to reduce the 
+majority of our emissions (versus our 2019 baseline) 
+before 2030 and plan to invest in nature-based and 
+technology-based carbon removal solutions to  
+neutralize our remaining emissions.
+Maintain carbon neutrality for our operations. 2021 
+(Annual)In 2021, we purchased enough renewable energy and high-
+quality carbon credits to compensate for all our operational 
+GHG emissions. Google has been carbon neutral for our 
+operations since 2007—for 15 consecutive years.16 
+CREATING SUSTAINABLE WORKPLACES
+Target Deadline 2021	progress Status
+Commuting
+Reduce single-occupancy vehicle commuting at  
+our Bay Area headquarters17 to 45% of workers 
+commuting on any given day.Not 
+applicableWe’re working toward this target.
+Provide EV charging stations for 10% of total  
+parking spaces at our Bay Area headquarters.Not 
+applicableOf the total parking spaces at our Bay Area 
+headquarters, more than 7% were designated  
+EV parking spaces with charging stations in 2021.
+Certifications
+Pursue the ILFI Living Building Challenge Certification  
+for our Charleston East and Bay View campuses—two  
+of Google’s first ground-up development projects at  
+our Bay Area headquarters. 2023 At our Charleston East campus, we’re working to  
+achieve the Living Building Challenge Materials Petal 
+(which includes Red List Free materials and net-zero 
+waste), and at our Bay View campus, we’re working  
+to achieve the Living Building Challenge Water Petal 
+(which includes net-positive water use).
+Food	waste
+Reduce food waste per Googler by 50% by 2025. 2025 This target was set in 2022.
+Send zero food waste to the landfill by 2025. 2025 This target was set in 2022.
+Achieved Missed In progress
+9
+Google Environmental Report 2022
+
+
+Page 11
+----------------------------------------------------------------------------------------------------
+BUILDING BETTER DEVICES AND SERVICES
+Target Deadline 2021	progress18 Status
+GHG	emissions
+Publish product environmental reports for 100%  
+of new flagship consumer hardware products.19 2021  
+(Annual) We published product environmental reports for  
+each of our flagship Nest and Pixel products that 
+launched in 2021.
+Materials
+Use recycled or renewable material in at least  
+50% of plastic used across our consumer hardware  
+product portfolio by 2025.20 2025 In 2021, we used recycled content across numerous  
+plastic parts in Nest and Pixel products.21 
+Eliminate plastic from packaging and make  
+packaging 100% recyclable by 2025.2025 In 2021, we designed Nest and Pixel packaging  
+to minimize the use of plastic. The retail packaging  
+for the Pixel 6, Pixel 6 Pro, and Pixel 5a (5G) use  
+98% paper- and fiber-based materials. 
+Include recycled materials in 100% of Google  
+consumer hardware products launching in  
+2022 and every year after.2022 We met this target early. All Nest and Pixel devices 
+launched since 2020 include recycled materials.22 
+Waste
+Achieve UL 2799 Zero Waste to Landfill  
+certification at all final assembly consumer  
+hardware manufacturing sites by 2022.2022 In 2021, we achieved certification to the UL 2799  
+Zero Waste to Landfill certification standard for  
+several final assembly manufacturing sites.
+EMPOWERING	USERS	WITH	TECHNOLOGY
+Target Deadline 2021	progress Status
+Tools
+Help more than 500 cities and local governments  
+globally reduce an aggregate of 1 gigaton of  
+carbon emissions annually by 2030.2030 In 2021, over 40 cities used the Environmental  
+Insights Explorer tool in their climate action  
+planning or for monitoring city climate targets.
+Products
+Help 1 billion people make more sustainable  
+choices through our core products by 2022.2022 We’re working toward this target. In 2021,  
+we shared several new ways people can use  
+Google products—such as Google Flights,  
+Google Maps, Google Search, and Google  
+Shopping—to make more sustainable choices.
+Achieved Missed In progress
+10
+Google Environmental Report 2022
+
+
+Page 12
+----------------------------------------------------------------------------------------------------
+Key	performance	indicatorAssured 	 
+for	202123 Unit														Fiscal	year24 
+2017 2018 2019 2020 2021
+OUR OPERATIONS
+GHG	EMISSIONS
+Emissions	inventory25,26 
+Scope 1 tCO2e 27 66,549 63,521 66,686 38,694 45,073
+Scope 2 (market-based)28,29 tCO2e 509,334 684,236 794,267 911,415 1,823,132
+Scope 2 (location-based) tCO2e 3,301,392 4,344,686 5,116,949 5,865,095 6,576,239
+Scope 3 (total)30 tCO2e 2,719,024 12,900,46731 11,669,000 9,376,000 9,503,000
+Scope 3 (business travel and employee  
+commuting, including teleworking)32tCO2e 356,060 463,467 542,000 213,00033 136,000
+Scope 3 (other) tCO2e 2,362,964 12,437,000 11,127,000 9,163,000 9,367,000
+Total (Scope 1, 2 [market-based], and 3 [total]) tCO2e 3,294,907 13,648,22434 12,529,953 10,326,109 11,371,205
+Biogenic emissions tCO2 14,708 22,862 21,905 5,417 3,797
+Operational	emissions35,36 
+Scope 1, 2 (market-based), and 3 (business travel  
+and employee commuting, including teleworking)tCO2e 931,943 1,211,224 1,402,953 1,163,109 2,004,205
+Scope 1, 2 (location-based), and 3 (business travel 
+and employee commuting, including teleworking)tCO2e 3,724,001 4,871,674 5,725,635 6,116,789 6,757,312
+Emissions	reductions	and	compensations	 for	our	operations
+Total emissions reduced by renewable energy  
+PPAs and compensated for by carbon creditstCO2e -3,724,001 -4,871,674 -5,725,635 -6,116,789 -6,757,312
+Emissions reduced by renewable energy PPAs37 tCO2e -2,792,058 -3,660,450 -4,322,682 -4,953,680 -4,753,107
+Emissions compensated for by carbon credits tCO2e -931,943 -1,211,224 -1,402,953 -1,163,109 -2,004,205
+Total operational GHG emissions (after emissions 
+reductions and compensations)38 tCO2e 0 0 0 0 0
+Carbon	intensity39 
+Carbon intensity per unit of revenuetCO2e/ 
+million US$5.19 5.47 5.32 5.21 7.25
+Carbon intensity per FTE employee tCO2e/FTE 7.60 8.36 7.96 7.49 12.87
+Carbon intensity per megawatt-hour  
+of energy consumed tCO2e/MWh 0.0717 0.0707 0.0675 0.0615 0.1006Environmental data
+The following table provides an overview of our performance over time and 
+includes both environmental data for our global operations (including our data  
+centers, offices, networking infrastructure, and other facilities) and data beyond  
+our operations (including our investments and technology). The majority of our  
+environmental data covers Alphabet Inc. and its subsidiaries, including 
+Google LLC. All reported data is global and annual unless otherwise specified. 
+We obtain third-party assurance from an independent, accredited auditor for 
+specific environmental data as part of our Independent Accountants’ Review , 
+including select GHG emissions, energy, and water metrics as indicated in the 
+table below.
+For more information on our energy use and GHG emissions, see Alphabet’s 
+CDP Climate Change Response on Google’s sustainability reports  page.
+11
+Google Environmental Report 2022
+
+
+Page 13
+----------------------------------------------------------------------------------------------------
+Key	performance	indicatorAssured 	 
+for	2021 Unit											Fiscal	year
+2017 2018 2019 2020 2021
+ENERGY
+Energy	use
+Energy consumption40 MWh 8,029,409 10,572,485 12,749,458 15,439,538 18,571,659
+Total electricity consumption MWh 7,609,089 10,104,295 12,237,198 15,138,543 18,287,143
+Electricity consumption (U.S.) MWh 5,533,783 7,085,620 8,489,242 10,789,194 12,903,398
+Electricity consumption (international) MWh 2,075,306 3,018,675 3,747,956 4,349,349 5,383,745
+Energy	efficiency
+Average annual fleet-wide PUE across  
+Google data centersPUE 1.11 1.11 1.10 1.10 1.10
+Renewable	energy
+Renewable energy contracts (cumulative) MW 2,960 3,837 5,401 5,746 7,233
+Total renewable electricity purchased MWh 7,609,089 10,104,295 12,237,198 15,138,543 18,287,143
+Renewable electricity (PPAs and on-site) MWh 6,244,788 8,246,508 9,721,283 12,076,382 14,118,248
+Renewable electricity (grid) MWh 1,364,301 1,857,787 2,515,915 3,062,161 4,168,895
+Electricity purchased from renewable sources41,42 % 100 100 100 100 100
+Carbon-free energy across Google data  
+centers (hourly)43 % – – 61 67 66
+WASTE
+Waste	generated
+Waste generated Metric tons 53,363 57,113 48,126 28,864 28,153
+Waste	diversion
+Total landfill diversion rate44 % 83 80 77 77 77
+Landfill diversion rate (data centers) % 91 87 90 81 78
+Landfill diversion rate (offices) % 78 76 71 71 64
+Pre-consumer food waste prevented in cafés 
+(cumulative)kg 1,990,868 3,019,252 4,152,872 4,439,47945 4,439,47946 
+Data	center	hardware	refurbishment	and	reuse
+Components used for server upgrades  
+that were refurbished inventory% 11 19 19 23 27
+Components resold into the secondary marketMillion  
+components2.1 3.4 9.9 8.2 4.947 
+WATER 
+Operational	water48,49 
+Water withdrawal Million gallons 3,071 4,170 5,161 5,689 6,297
+Water consumption Million gallons – – 3,412 3,749 4,562
+Water discharge Million gallons – – 1,749 1,940 1,735
+12
+Google Environmental Report 2022
+
+
+Page 14
+----------------------------------------------------------------------------------------------------
+Key	performance	indicatorAssured 	 
+for	2021 Unit											Fiscal	year
+2017 2018 2019 2020 2021
+WORKPLACES
+Green	building	certifications
+LEED-certified office space (cumulative) m21,034,875 1,294,16150 1,438,257 1,557,606 1,704,922
+Platinum (cumulative) % 28 29 29 27 26
+Gold (cumulative) % 56 57 56 58 60
+Certified and Silver (cumulative) % 16 14 15 15 14
+Sustainable	commuting
+EV charging ports at offices in the  
+United States and Canada (cumulative)51 Ports 2,077 2,722 3,419 3,617 3,998
+Emissions avoided due to employee EV commuting  
+in the United States and Canada52 tCO2e 2,891 4,103 6,258 1,892 3,468
+Employee shuttle commuting trips in the Bay Area53 Million trips 3.8 4.0 4.3 0.7 0.1
+Employee shuttle riders in the Bay Area  
+(peak daily)54 Unique riders 10,000 11,000 11,900 11,700 1,664
+Emissions avoided due to employee shuttle  
+trips in the Bay Area55 tCO2e 33,241 40,309 43,242 7,000 881
+Urban	ecology
+Native trees planted on our Bay Area campuses 
+(cumulative)Trees 1,411 1,602 2,191 2,19156 2,509
+Native habitat restored and created on our  
+Bay Area campuses (cumulative)Acres 7 9 12 1257 15
+BEYOND OUR OPERATIONS
+INVESTMENTS
+Equity	investments	in	renewable	energy58 
+Combined renewable energy capacity  
+(cumulative) GW 3.7 3.7 3.7 3.7 3.7
+TECHNOLOGY
+Tools
+Cities and regions covered by the Environmental  
+Insights Explorer (cumulative)59,60 Cities and 
+regions– 5 117 3,000 41,700
+Products
+Household energy saved by Nest thermostat  
+customers (cumulative)GWh 17,480 29,894 47,020 65,153 86,711
+13
+Google Environmental Report 2022
+
+
+Page 15
+----------------------------------------------------------------------------------------------------
+Appendix 
+Endnotes
+1. According to Google’s own analysis of our more efficient servers, power infrastructure, and cooling systems, compared with data center industry averages.
+2. PUE is a standard industry ratio that compares the amount of non-computing overhead energy (used for things like cooling and power distribution) to the amount of energy used to 
+power IT equipment. A PUE of 2.0 means that for every watt of IT power, an additional watt is consumed to cool and distribute power to the IT equipment. A PUE closer to 1.0 means 
+nearly all the energy is used for computing.
+3. According to the Uptime Institute’s 2021 Data Center Survey , the global average PUE of respondents’ largest data centers was around 1.57.
+4. Carbon credits are reductions in GHG emissions made to compensate for emissions that occur elsewhere. For each metric ton of carbon dioxide equivalent reduced, one carbon credit 
+is created. References to “carbon offsets” (as mentioned in prior reports) were updated to “carbon credits” starting in Google’s 2021 Environmental Report. For more information on our 
+approach to purchasing carbon credits, see our 2011 white paper, Google’s Carbon Offsets: Collaboration and Due Diligence .
+5. This estimated spend commitment is for clean energy purchased for our operations. It may fluctuate over time based on the number of contracts signed and energy market prices.
+6. Based on our cumulative renewable electricity purchased in megawatt-hours (MWh) from 2012 to 2021.
+7. The first year Google signed a renewable energy contract  was 2010.
+8. We procure high-quality carbon credits to compensate for the carbon emissions from all Google-owned shipments of consumer hardware, including to and from retail partners, 
+distributors, and Google Store customers. Because shipping devices to customers falls outside the scope of Google’s operations, these efforts go beyond Google’s long-standing 
+commitment to operational carbon neutrality.
+9. Energy Savings from the Nest Learning Thermostat: Energy Bill Analysis Results , Nest Labs, February 2015.
+10. Independent studies showed that Nest saved people an average of 10% to 12% on heating and 15% on cooling. Using typical energy costs, we’ve estimated average savings of  
+$131 to $145 a year. That means the Nest Learning Thermostat can pay for itself in under two years. Individual savings are not guaranteed.
+11. Nest and Pixel devices are designed with 9%–68% recycled content across their respective plastic parts in 2020 and 2021. This does not include plastics in printed circuit boards, 
+labels, cables, connectors, electronic components and modules, optical components, electrostatic discharge components, electromagnetic interference components, films, 
+coatings, and adhesives. The aluminum in the enclosure of Pixel 5 is 100% recycled content. (Back housing only. Recycled aluminum is approximately 58% of the Pixel 5 enclosure 
+based on weight.) The aluminum in the housing of Pixel 6 is 100% recycled content. (Recycled aluminum (in the housing and other recycled aluminum components) is approximately 
+14% of product based on weight.)
+12. Carbon footprint reduction claim based on third-party verified life cycle assessment. Recycled aluminum (in the housing and other recycled aluminum components) is approximately 
+14% of product based on weight.
+13. One petabyte is 1015 bytes, or 1 million gigabytes, of digital information. It’s equal to approximately 2.5 months of uninterrupted, uncompressed, high-definition (1920 x 1080 pixels) 
+video data.
+14. Google was the largest organization, in terms of electricity consumption, to achieve a 100% renewable energy match.
+15. For more details, see our 2021 white paper, Carbon-free Energy Performance at Google Data Centers .
+16. We reach operational carbon neutrality via three steps. First, we work to reduce our total energy consumption by pursuing aggressive energy efficiency initiatives. Second, we match 
+100% of the electricity consumption of our operations with purchases of renewable energy. Third, we buy high-quality carbon credits for any remaining operational emissions we 
+haven’t yet eliminated.
+17. In this report, “Bay Area headquarters” refers to our operations in both Mountain View and Sunnyvale.
+18. Fitbit wearable devices were not included in the scope of these targets in 2021.
+19. Flagship consumer hardware products are products that can provide their main functionality without connection to another product. For example, this does not include accessories, 
+such as earbuds or cases.
+20. Minimum percentage of recycled or renewable plastic content calculated as a percentage of total plastic (by weight) in all products manufactured in 2025. The following may be 
+excluded from the calculation of percentage: printed circuit boards, labels, cables, connectors, electronic components and modules, optical components, electrostatic discharge 
+components, electromagnetic interference components, films, coatings, and adhesives. Renewable content consists of plastic made from bio-based material.
+21. This does not include plastics in printed circuit boards, labels, cables, connectors, electronic components and modules, optical components, electrostatic discharge components, 
+electromagnetic interference components, films, coatings, and adhesives.
+22. See note 11 above.
+23. Ernst & Young LLP reviewed select quantitative performance indicators for the fiscal year ended December 31, 2021. See the related Independent Accountants’ Review Report . Prior to 
+fiscal year 2019, another third party verified the following emissions: Scope 1, Scope 2 (market-based), Scope 2 (location-based), Scope 3 (business travel and employee commuting), 
+and biogenic. For more information, see our prior annual Environmental Reports .
+24. Alphabet’s fiscal year is from January 1 to December 31.
+25. GHG emissions are calculated according to Greenhouse Gas Protocol standards  and guidance , developed by the World Resources Institute (WRI) and the World Business Council 
+for Sustainable Development (WBCSD), including A Corporate Accounting and Reporting Standard (Revised Edition) , Scope 2 Guidance , and the  Corporate Value Chain (Scope 3) 
+Accounting and Reporting Standard . For more information on our methodology, including a breakdown of Scope 3 categories, see Alphabet’s CDP Climate Change Responses on 
+Google’s sustainability reports  page. 
+26. Scope 1 emissions are direct emissions from sources we own or over which we have operational control, such as company vehicles or generators at Google’s offices and data centers. 
+Scope 2 emissions are indirect emissions from the production of electricity we purchase to run our operations and the production of space heating for our offices. The location-based 
+category reflects the average carbon intensity of the electric grids where our operations are located and thus where our energy consumption occurs. The market-based category 
+incorporates our procurement choices, i.e., our renewable energy purchases via contractual mechanisms like PPAs. Scope 3 emissions are indirect emissions from other sources in  
+our value chain, such as business travel or our suppliers.
+27. CO2e is a quantity that describes, for a given mixture and amount of GHG, the amount of carbon dioxide that would have the same global warming potential (GWP), i.e., the ability of 
+a gas to trap heat in the atmosphere when measured over a specified timescale (generally, 100 years). Some GHGs are more potent than others, as measured by their GWP. Carbon 
+dioxide is the baseline and thus has a GWP of 1.
+28. Since 2010, we’ve procured renewable energy for our operations, and in 2012, we began publishing how this reduces our overall emissions. Until 2015, there was no guidance from the 
+Greenhouse Gas Protocol on how to account for these emissions reductions, so we developed our own methodology, whereby on an annual basis we assigned renewable electricity 
+procured against electricity consumed (in megawatt-hours) in the closest data center to the renewable energy project. In 2015, the Greenhouse Gas Protocol released updated  
+Scope 2 guidance for the accounting of purchased electricity, steam, heat, and cooling, which we adopted, starting with 2015 data.
+29. Google currently buys enough renewable energy to match our annual global electricity consumption. To achieve our 100% renewable energy match goal, we first consider both 
+our on-site renewable energy generation and the renewable energy that is already in the electric grids where our facilities are located, then procure renewable energy through PPA 
+contracts. We have a few facilities located in geographies where we’re not currently able to source large volumes of renewable energy, so we currently make up for this by buying 
+surplus renewable energy in regions where it’s abundant. For example, by buying larger amounts of wind energy in places like Europe, we compensate for our lack of renewable energy 
+purchases in Asia. This approach results in Google’s Scope 2 market-based emissions being greater than zero as per the Greenhouse Gas Protocol Scope 2 Guidance , despite us 
+achieving our 100% renewable energy match globally. To work toward eliminating GHG emissions associated with our electricity use (Scope 2 market-based emissions), we set the 
+ambitious goal of achieving 24/7 carbon-free energy by 2030 . To attain this, we’re evolving from matching our annual energy consumption with renewable energy to sourcing  
+carbon-free energy every hour of every day, everywhere.
+30. See note 25 above.
+14
+Google Environmental Report 2022
+
+
+Page 16
+----------------------------------------------------------------------------------------------------
+31. In 2018, to align with industry best practices for Scope 3 reporting, we extended our reporting boundaries to include emissions associated with food served in our offices, hardware 
+manufacturing emissions beyond Tier 1 suppliers (full upstream to the point of extraction), use of sold products, and end-of-life treatment of sold products. Google’s hardware includes 
+data center servers, networking equipment, and consumer hardware products. These extended categories have been reported annually from 2018 onward.
+32. In 2020, due to the global pandemic, we began to estimate and report on our emissions associated with teleworking (i.e., employees working remotely). We applied the estimation 
+methodology outlined in EcoAct’s Homeworking Emissions Whitepaper  to our annual average workforce to estimate the GHG emissions generated by employees working remotely 
+from their homes. Teleworking emissions are reported as part of our Scope 3 emissions for employee commuting, per Greenhouse Gas Protocol’s Technical Guidance for Calculating 
+Scope 3 Emissions (version 1.0) . For a breakdown of our operational Scope 3 emissions by category, see our 2021 Independent Accountants’ Review Report .
+33. In 2020, we began reporting teleworking emissions as part of our Scope 3 employee commuting emissions. Scope 3 (business travel and employee commuting) emissions  
+reported prior to 2020 do not include teleworking emissions.
+34. See note 31 above.
+35. We calculate two metrics for operational emissions, one using market-based Scope 2 and one using location-based Scope 2. The Scope 2 market-based and location-based amounts 
+have been third-party assured by Ernst & Young LLP, as shown in the Schedule of Select Environmental Indicators attached to the 2021 Independent Accountants’ Review Report .  
+In the 2021 Independent Accountants’ Review Report, the Schedule of Operational GHG emissions After Compensation Adjustments only includes the market-based metric.
+36. In 2016, we adopted the industry practice of including only operational emissions in our carbon neutrality commitment. For more information, see our 2017 white paper,  
+10 Years of Carbon Neutrality . In 2020, we extended our operational emissions boundary to include teleworking emissions. The operational emissions included in our carbon  
+neutrality commitment now include Scope 1, Scope 2 (market-based), and Scope 3 (business travel and employee commuting, including teleworking).
+37. Emissions reduced by renewable energy PPAs are calculated by subtracting Scope 2 market-based method (MBM) GHG emissions from Scope 2 location-based method GHG 
+emissions, thereby representing emissions reductions from renewable energy PPAs and MBM emission factors.
+38. See note 36 above.
+39. Carbon intensity metrics are based on gross global combined Scope 1 and market-based Scope 2 emissions. For more information on year-over-year changes to market-based  
+Scope 2 emissions, see note 29 above.
+40. Total energy consumption includes all fuel and natural gas consumption, purchased electricity, purchased heating, and all electricity generated on-site from renewable sources.
+41. Percentage of renewable energy is calculated on a calendar-year basis, comparing the volume of renewable electricity (in megawatt-hours) procured for our global operations  
+(i.e., renewable energy procured through our PPA contracts, on-site renewable energy generation, and renewable energy in the electric grids where our facilities are located) with the 
+total volume of electricity consumed by our operations. This metric includes all renewable energy purchased, regardless of the market in which the renewable energy was consumed. 
+Prior to 2016, we were not accounting for the renewable electricity purchased through grid electricity.
+42. The Greenhouse Gas Protocol’s Scope 2 Guidance  requires energy attribute certificates to be sourced from and applied to the same market in which the reporting entity’s  
+electricity-consuming operations are located. This guidance does not recognize existing renewable energy on the electric grids where an entity’s operations are located.
+43. Our carbon-free energy (CFE) percentage measures the degree to which our electricity consumption on a given regional grid is matched with CFE on an hourly basis. This is calculated 
+using both CFE under contract by Google as well as CFE coming from the overall grid mix. CFE coming from the overall grid mix is based on data obtained from a third-party, 
+electricityMap, and has not been assured. For more information, see our 2021 white paper, 24/7 Carbon-Free Energy: Methodologies and Metrics .
+44. Landfill diversion is calculated as waste diverted to a more sustainable pathway than landfill or incineration without energy recovery.
+45. In 2020, pre-consumer food waste prevented in our cafés was tracked only from January to March due to limited café operations during the global pandemic.
+46. In 2021, we continued to experience limited café operations due to the global pandemic. As a result, we were unable to update our cumulative total for pre-consumer food waste 
+prevented in our cafés.
+47. In 2021, there was less inventory to be resold due to market shortages and the continued impact of the global pandemic.
+48. In 2019, we aligned our water reporting with industry standards to disclose three water indicators: total water withdrawal, consumption, and discharge. Data for total water consumption 
+and total water discharge is not available for prior years.
+49. Our reported water withdrawal, water consumption, and water discharge metrics do not include seawater.
+50. 2018 is the first year that reflects a refinement in Green Business Certification Inc.’s methodology for determining LEED-certified office space.
+51. This figure indicates the number of ports for ChargePoint stations in the United States and Canada, which represent the majority of our EV charging ports in those countries.
+52. Emissions avoided are estimated using data from the reported ports for ChargePoint stations in the United States and Canada only. While Google’s total number of installed EV charging 
+ports in the United States and Canada increased in 2020, the ports experienced limited use from March to December due to the global pandemic, resulting in a decrease in emissions 
+avoided due to employee EV commuting that year. In 2021, EV charging ports continued to experience limited use due to office closures and related decreases in employee EV commuting.
+53. Due to the global pandemic, our Google shuttle buses in the Bay Area were in operation only from January to March in 2020 and from July to December in 2021.
+54. See note 53 above.
+55. See note 53 above.
+56. All ecology projects that were scheduled for completion in 2020 were delayed due to the global pandemic.
+57. See note 56 above. 
+58. In addition to our renewable energy contracts, Google also invests in renewable energy projects around the world that are not used to directly mitigate our emissions. This indicator 
+represents the expected combined capacity of contracted renewable energy projects in which we have an equity investment, even if we’re a minority owner.
+59. Project Sunroof metrics have been incorporated into updates for the Environmental Insights Explorer. See the tool  for more information about rooftop solar potential data.
+60. We updated the unit of this key performance indicator from “cities” in prior reports to “cities and regions.” This change more accurately describes the data boundaries for the 
+Environmental Insights Explorer and does not represent a change in underlying methodology or related calculations.
+Glossary
+CFE:  carbon-free energy
+CO2e: carbon dioxide equivalent
+EV: electric vehicle
+ft: foot
+FTE:  full-time equivalent
+GHG:  greenhouse gas
+GW:  gigawatt
+GWh:  gigawatt-hour
+GWP:  global warming potential
+ILFI:  International Living Future Institute
+ISO:  International Organization for Standardization
+kg: kilogram
+km:  kilometerkWh:  kilowatt-hour
+lb: pound
+LEED:  Leadership in Energy and Environmental Design
+m: meter
+MBM:  market-based method
+MW:  megawatt
+MWh:  megawatt-hour
+PPA:  power purchase agreement
+PUE:  power usage effectiveness
+tCO2: metric tons of carbon dioxide
+tCO2e: metric tons of carbon dioxide equivalent
+WBCSD:  World Business Council for Sustainable Development
+WRI:  World Resources Institute
+15
+Google Environmental Report 2022
+
+
+Page 17
+----------------------------------------------------------------------------------------------------
+Google	Environmental	Report	2022
+June 2022
+On	the	cover:
+Google Earth image of Azores, Portugal  
+©2022 CNES / Airbus, Maxar Technologies, SRHT
+
+
