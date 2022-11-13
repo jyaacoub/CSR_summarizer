@@ -1,5 +1,5 @@
 # %%
-from file_reader import pdf_reader
+from file_reader.pdf_reader import pdf_reader
 from file_parser.chunker import Chunker
 from models.open_ai import OpenAPI_summarizer, OpenAPI_search
 from common.constants import GOOGLE_CSR
@@ -14,3 +14,5 @@ top_n = 10
 
 # %%
 pdf_content = pdf_reader(GOOGLE_CSR) # looks like: {section: {"content":text, "pages": (int,int)}, ...}
+
+# %%

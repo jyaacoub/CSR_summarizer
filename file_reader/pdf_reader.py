@@ -41,6 +41,9 @@ def pdf_reader(file_path):
     
     return toc_dict
 
+if __name__ == "__main__":
+    pdf_reader("data/CSR_samples/google-2022-environmental-report.pdf")
+
 
 #UNUSED CODE FOR EXTRACTING PDF INTO FILE----------------------------------------------------------------------------------
 # with open('file_reader/CSR_text.txt', 'w', encoding="utf-8") as file:
