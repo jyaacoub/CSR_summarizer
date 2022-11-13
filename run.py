@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 # %%
 tkn = TokenCounter(exact_token_count=True)
-chunker = Chunker(token_counter=tkn)
+chunker = Chunker(token_counter=tkn, max_tokens=250)
 srch_mdl = OpenAPI_search(token_counter=tkn)
 sum_mdl = OpenAPI_summarizer(token_counter=tkn)
 top_n = 10
@@ -25,7 +25,8 @@ pdf_content = pdf_reader(GOOGLE_CSR) # looks like: {section: {"content":text, "p
 # %% chunking the content
 pdf_chunked = pd.DataFrame(columns=['text', 'section', 'chunk_no'])
 
-for section in tqdm(pdf_content):
+for section in pdf_content:
+    print('chunking section:', section)
     chunks = chunker.chunk_sentence(pdf_content[section]['content'])
     # convert to dataframe
     df_section = pd.DataFrame({'text':chunks, 'section':section,
@@ -35,4 +36,7 @@ for section in tqdm(pdf_content):
 pdf_chunked.reset_index(drop=True, inplace=True)
     
 # %% semantic search
-pdf_chunked = srch_mdl.get_scores(pdf_chunked, QRYS[1])
+pdf_chunked_scores = srch_mdl.get_scores(pdf_chunked, QRYS[1]).sort_values(by='scores', ascending=False)
+
+
+# %%

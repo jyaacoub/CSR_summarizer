@@ -50,7 +50,7 @@ class Chunker:
             tkns_remaining = tkn_count - self.max_tokens
             while tkns_remaining >= 0: # while we are still over the max_tokens
                 # decrease using heuristic and tokens remaining
-                max_idx -= CHAR_PER_TOKEN*tkns_remaining
+                max_idx -= CHAR_PER_TOKEN*tkns_remaining if tkns_remaining > 0 else CHAR_PER_TOKEN
                 max_idx = int(max_idx)
                 tkn_count = self.token_counter(text[:max_idx], exact=True)
                 tkns_remaining = tkn_count - self.max_tokens
@@ -60,8 +60,9 @@ class Chunker:
                     {tkn_count} > {self.max_tokens}). Heuristic method failed."
             
             # finding the last period in the first chunk < max_tokens
-            period_idx = text.rfind('.', 0, max_idx) + 1 # +1 to include the period
+            period_idx = text.rfind('.', 0, max_idx)
             assert period_idx < max_idx, 'Error: No period found in first chunk?'
             if period_idx == -1: # if no period found, then just cut off at max_tokens
                 period_idx = max_idx
+            period_idx += 1 # add 1 to include the period in the chunk
             return [text[:period_idx]] + self.chunk_sentence(text[period_idx:])
