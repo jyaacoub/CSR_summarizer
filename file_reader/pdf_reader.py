@@ -35,7 +35,7 @@ def pdf_reader(file_path):
                 
                 # TODO: include page numbers in the dictionary
                 # end result should look like this:
-                # { section_title: { page_num: content }}
+                # {section: {"content":text, "pages": (int,int)}, ...}
             except:
                 pass
         print(section_title)
