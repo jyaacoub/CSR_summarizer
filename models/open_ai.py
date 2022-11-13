@@ -22,15 +22,14 @@ Considerations for model chosen and setup:
 
 import math
 from common.SECRETS import API_KEY
+from common.constants import CHAR_PER_TOKEN
 
 import openai
 from openai.embeddings_utils import get_embedding, cosine_similarity
 
 import pandas as pd
 
-class OpenAPI:
-    TOKENS_PER_CHAR = 4.45 # one token is roughly 4 characters (gpt2 tokenizer)
-    
+class OpenAPI:    
     def __init__(self, api_key=API_KEY, tokenizer=None):
         self.api_key = api_key
         openai.api_key = api_key
@@ -48,7 +47,7 @@ class OpenAPI:
             res = self.tokenizer(text)
             return len(res["input_ids"])
         else:
-            return math.ceil(len(text)/self.TOKENS_PER_CHAR) # one token is roughly 4 characters
+            return math.ceil(len(text)/CHAR_PER_TOKEN) # one token is roughly 4 characters
     
 class OpenAPI_search(OpenAPI):
     EMBEDDING_DOC_MODEL = "text-search-curie-doc-001" # using curie for efficiency (davinci is more accurate but way slower)
