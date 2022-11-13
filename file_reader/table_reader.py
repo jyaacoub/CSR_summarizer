@@ -3,10 +3,9 @@ import tabula
 import os
 
 def table_reader(file_path, page):
-    file_path = "data/CSR_samples/Microsoft_CSR.pdf"
-    tables = tabula.read_pdf(file_path, pages= page, multiple_tables=True)
+    tables = tabula.read_pdf(file_path, pages=page, multiple_tables=True)
 
-    #saving into excel sheet for testing purposes
+    # #saving into excel sheet for testing purposes
     # folder_name = "tables"
     # if not os.path.isdir(folder_name):
     #     os.mkdir(folder_name)
