@@ -1,6 +1,6 @@
 # %%
 from transformers import GPT2Tokenizer
-from models.open_ai import OpenAPI
+from models.open_ai import OpenAPI_summarizer
 from tqdm import tqdm
 
 text = """Environmental data
@@ -18,7 +18,7 @@ For more information on our energy use and GHG emissions, see Alphabet’s
 CDP Climate Change Response on Google’s sustainability reports"""
 
 # %%
-op = OpenAPI()
+op = OpenAPI_summarizer() 
 samples = []
 with tqdm(total=8) as pbar:
     for i in range(4):
@@ -38,7 +38,7 @@ with tqdm(total=8) as pbar:
         samples.append((resT, resF))
 
 # %%
-with open("data/sample_summaries.txt", "w", encoding="utf-8") as f:
+with open("data/CSR_samples/sample_summaries_p12_r1.txt", "w", encoding="utf-8") as f:
     for i, sample in enumerate(samples):
         f.write(f"Prompt {i}")
         f.write(f"\n{sample[0]}\n")

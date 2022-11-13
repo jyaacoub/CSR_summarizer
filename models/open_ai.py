@@ -25,16 +25,12 @@ from common.SECRETS import API_KEY
 
 import openai
 
-
 class OpenAPI:
-    SUMMARY_MODEL = "text-davinci-002" # model to use for summarization
-    MAX_TOKENS_DAVIN2 = 4000 # max tokens for davinci-002 is 4,000 - https://beta.openai.com/docs/models/gpt-3
-                             # this includes the prompt
-    TOKENS_PER_CHAR = 4.45 # one token is roughly 4 characters
-    def __init__(self, api_key=API_KEY):
-        self.api_key = api_key
+    TOKENS_PER_CHAR = 4.45 # one token is roughly 4 characters (gpt2 tokenizer)
+    
+    def __init__(self, api_key=API_KEY, tokenizer=None):
         openai.api_key = api_key
-        self.tokenizer = None
+        self.tokenizer = tokenizer
     
     def get_token_count(self, text, exact=True): # non-static method so that we dont load the tokenizer multiple times
         """
@@ -49,6 +45,44 @@ class OpenAPI:
             return len(res["input_ids"])
         else:
             return math.ceil(len(text)/self.TOKENS_PER_CHAR) # one token is roughly 4 characters
+    
+
+class OpenAPI_search(OpenAPI):
+    EMMBEDDING_DOC_MODEL = "text-search-curie-doc-001"
+    EMMBEDDING_query_MODEL = "text-search-curie-query-001"
+    
+    MAX_TOKENS_E = 2048 # max tokens for embedding model
+    def __init__(self, api_key=API_KEY, tokenizer=None):
+        self.api_key = api_key
+        openai.api_key = api_key
+        self.tokenizer = tokenizer
+    
+    def _get_doc_embedding(self, text, model="text-search-curie-doc-001"):
+        openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
+        
+    def semantic_search(self, text, query): # example: https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
+        """Gets the most relevant text from a document based on a query"""
+        
+        # get semantic scores for query
+        
+        # loop through documents and get semantic scores
+        
+        # compare query scores to document scores
+        pass
+    
+    def _get_semantics(self, document):
+        """Returns the semantic score(s) of document(s) using OpenAI's API"""
+        pass
+
+class OpenAPI_summarizer(OpenAPI):
+    SUMMARY_MODEL = "text-davinci-002" # model to use for summarization
+    MAX_TOKENS_S = 4000 # max tokens for SUMMARY MODEL (davinci-002) - https://beta.openai.com/docs/models/gpt-3
+    # NOTE: Max tokens includes the prompt
+    
+    def __init__(self, api_key=API_KEY, tokenizer=None):
+        self.api_key = api_key
+        openai.api_key = api_key
+        self.tokenizer = tokenizer
     
     def summarize_text(self, text, max_resp_tokens=256, summary_prompt=0, bullet_points=False,
                         temperature=0.7,   
@@ -76,11 +110,11 @@ class OpenAPI:
         if summary_prompt == 0:
             prompt = "Summarize the following text: \n\n" + text + "\n"
         elif summary_prompt == 1:
-            prompt = text + "\ntd;dr:\n"
+            prompt = text + "\ntl;dr:\n" # most consitent results (no bullet points when told to)
         elif summary_prompt == 2:
-            prompt = text + "\nSummary:\n"
+            prompt = text + "\nSummary:\n" # this prompt sucks and tends to just make up stuff
         elif summary_prompt == 3:
-            prompt = text + "\nSummary of the above text:\n"
+            prompt = text + "\nSummary of the above text:\n" # second best but sometimes forces bullet points
             
         if bullet_points:
             prompt += "\n-"
@@ -88,7 +122,7 @@ class OpenAPI:
         # ensuring prompt + max_resp_tokens does not exceed max tokens for davinci-002
         num_tokens_prompt = self.get_token_count(prompt)
         total_tokens = num_tokens_prompt + max_resp_tokens
-        assert total_tokens < self.MAX_TOKENS_DAVIN2, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
+        assert total_tokens < self.MAX_TOKENS_S, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
                                                         (prompt: {num_tokens_prompt}, max_resp_tokens: {max_resp_tokens})"
         
         # Checks text size, returns error if larger than max tokens
@@ -103,21 +137,13 @@ class OpenAPI:
             )
         return '-' + response.choices[0].text if bullet_points else response.choices[0].text
     
-    def _chunk_text(self, text, chunk_size=MAX_TOKENS_DAVIN2):
-        """Splits text into chunks of size chunk_size"""
-        pass
-    
-    def semantic_search(self, query, documents):
-        """Compares a query to a corpus of documents and returns the most relevant documents"""
-        
-        # get semantic scores for query
-        
-        # loop through documents and get semantic scores
-        
-        # compare query scores to document scores
-        pass
-    
-    def get_semantics(self, document):
-        """Returns the semantic score(s) of document(s) using OpenAI's API"""
+    def summarize_texts(self, texts,max_resp_tokens=256, summary_prompt=0, bullet_points=False,
+                        temperature=0.7,   
+                        top_p=1,           
+                        frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
+                        presence_penalty=0.2):
+        """
+        Gets text summaries for multiple documents in a single query for efficiency
+        """
         pass
     
