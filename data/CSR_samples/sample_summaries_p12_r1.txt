@@ -1,45 +1,35 @@
 Prompt 0
 
-Alphabet Inc. (including Google LLC) reports environmental data annually in the table below. The data includes information on their global operations, investments, and technology. The data is obtained from a third-party assurance from an independent, accredited auditor. Alphabet Inc. is committed to reducing their environmental impact.
+The table provides an overview of Alphabet Inc.'s performance over time in regards to environmental data. This data includes information on their global operations, investments, and technology. The majority of the environmental data covers Alphabet Inc. and its subsidiaries, including Google LLC. All reported data is global and annual unless otherwise specified.
 	--------------------
--Alphabet reports their environmental data globally and annually
--The data includes information on their data centers, offices, networking infrastructure, and other facilities
--The data also includes information on their investments and technology
--They obtain third-party assurance from an independent, accredited auditor for specific environmental data
--The data is part of Alphabet's Independent Accountants' Review
--The data includes GHG emissions, energy, and water metrics
+-The table provides an overview of the company's environmental performance over time. 
+-The data includes environmental data for their global operations, as well as data beyond their operations. 
+-The majority of the environmental data covers Alphabet Inc. and its subsidiaries, including Google LLC. 
+-All reported data is global and annual unless otherwise specified. 
+-The company obtains third-party assurance from an independent, accredited auditor for specific environmental data. 
+-This includes select GHG emissions, energy, and water metrics.
 ####################
 Prompt 1
 
-Alphabet Inc. and its subsidiaries (including Google LLC) have reported the following environmental data globally and annually:
-
--GHG emissions
--Energy use
--Water use
+Alphabet Inc. and its subsidiaries, including Google LLC, report environmental data globally and annually. This data covers their operations (including data centers, offices, networking infrastructure, and other facilities) and beyond (including investments and technology).
 	--------------------
--Alphabet Inc. and its subsidiaries, including Google LLC, report environmental data globally and annually.
--The majority of Alphabet's environmental data covers Alphabet Inc. and its subsidiaries, including Google LLC.
--Alphabet obtains third-party assurance from an independent, accredited auditor for specific environmental data, including select GHG emissions, energy, and water metrics.
+-We track and report our environmental data globally and annually.
+-We have obtained third-party assurance from an independent, accredited auditor for our GHG emissions, energy use, and water metrics.
 ####################
 Prompt 2
--In 2018, our total energy consumption was 5.7 TWh.
--In 2018, our total GHG emissions were 15.8 MtCO₂e.
--In 2018, we used 1.6 billion gallons of water.
-	--------------------
--Alphabet’s total carbon dioxide (CO₂) emissions in 2019 were 7.9 million metric tons
--Google’s total renewable energy purchases in 2019 were 5.5 terawatt-hours (TWh)
--Google’s total energy consumption in 2018 was 5.2 TWh
--In 2018, 78% of Google’s total energy consumption was renewable
--In 2018, Google’s operations generated 3.6 million metric tons of CO₂
 
-Alphabet Inc.'s environmental data is available in its sustainability reports.
+Alphabet Inc. and its subsidiaries, including Google LLC, have a strong focus on reducing their environmental impact. They have set ambitious goals for themselves, including becoming carbon-neutral by 2030. The majority of their environmental data covers Alphabet Inc. and its subsidiaries, and all reported data is global and annual. They obtain third-party assurance from an independent, accredited auditor for specific environmental data as part of their Independent Accountants’ Review, including select GHG emissions, energy, and water metrics as indicated in the table below.
+	--------------------
+-Alphabet’s total annual GHG emissions were _____ in 2019.
+-The company’s total energy use was _____ MWh in 2019.
+-Alphabet’s total water use was _____ million gallons in 2019.
 ####################
 Prompt 3
 
-Alphabet Inc. and its subsidiaries, including Google LLC, have been committed to reducing their environmental impact and have made progress in a number of areas, including GHG emissions, energy use, and water consumption. The company has obtained third-party assurance for some of its environmental data, including GHG emissions, energy use, and water consumption.
+The table provides an overview of Alphabet Inc.'s environmental performance over time. It includes data on the company's global operations (including data centers, offices, networking infrastructure, and other facilities) and on its investments and technology. The majority of the environmental data covers Alphabet Inc. and its subsidiaries, including Google LLC. All reported data is global and annual unless otherwise specified. Alphabet Inc. obtains third-party assurance from an independent, accredited auditor for specific environmental data as part of its Independent Accountants' Review, including select GHG emissions, energy, and water metrics as indicated in the table below.
 	--------------------
--Alphabet Inc. and its subsidiaries, including Google LLC, have a commitment to reducing their environmental impact.
--The company has a goal to be powered by 100% renewable energy, and they are working towards this goal by investing in renewable energy projects and technology.
--They have also reduced their GHG emissions by 45% since 2007.
--Alphabet Inc. and its subsidiaries are working to improve their water usage, and have reduced their water usage by 27% since 2007.
+-Alphabet Inc. and its subsidiaries, including Google LLC, have reported environmental data for their global operations (including data centers, offices, networking infrastructure, and other facilities) and for their investments and technology.
+-The majority of the environmental data covers Alphabet Inc. and Google LLC.
+-All reported data is global and annual unless otherwise specified.
+-Some environmental data has received third-party assurance from an independent, accredited auditor.
 ####################

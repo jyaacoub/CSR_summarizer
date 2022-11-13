@@ -88,27 +88,38 @@ class OpenAPI_summarizer(OpenAPI):
     def __init__(self, api_key=API_KEY, tokenizer=None):
         super().__init__(api_key, tokenizer)
     
-    def summarize_text(self, text, max_resp_tokens=256, summary_prompt=0, bullet_points=False,
-                        temperature=0.7,   
+    def summarize_text(self, text, exact_token_count=False, max_resp_tokens=256, 
+                        summary_prompt=0, bullet_points=False,
+                        temp=0.7,   
                         top_p=1,           
-                        frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
-                        presence_penalty=0.2): # increases the number of topics covered in the summary
-        """ 
+                        freq_penalty=0.07, # should stay low to avoid just coming up with unrelated words
+                        pres_penalty=0.2): # increases the number of topics covered in the summary
+        """        
         Simple function that takes string input and returns a summary of the text via OpenAI's API 
         
         A few ways we can prompt the model to write a summary:
-            0 - "Summarize the following text: \n\n<text>"
-            1 - "<text> \ntd;dr:" - https://medium.com/geekculture/a-paper-summarizer-with-python-and-gpt-3-2c718bc3bc88
-            2 - "<text> \nSummary:"
-            3 - "<text> \nSummary of the above text:"
+            0 - "Summarize the following text: \\n\\n<text>"
+            1 - "<text> \\ntl;dr:" - https://medium.com/geekculture/a-paper-summarizer-with-python-and-gpt-3-2c718bc3bc88
+            2 - "<text> \\nSummary:"
+            3 - "<text> \\nSummary of the above text:"
             
-        We can also specify if we want it as a bulleted list:
+        Args:
+            `text` (str): text to summarize
+            `exact_token_count` (bool, optional): if True, will uses a expensive gpt2 tokenizer to get exact token count for text. 
+                Uses a heuristic of 4.45 tokens per character if False. Defaults to False.
+            `max_resp_tokens` (int, optional): max number of tokens for the summary. Defaults to 256.
+            `bullet_points` (bool, optional): If True, will foce the summary to be in the form of bullet points. Defaults to False.
             
-        We can also vary the max tokens to be returned (this needs to be tuned as to not miss out important technical details)
-            - vary depending on the length of the text?
-            - set to specific number?
-            - vary based on information density of text? - https://towardsdatascience.com/linguistic-complexity-measures-for-text-nlp-e4bf664bd660
-        
+            `temp` (float, optional): temperature represents how random the result is (1.0 is deterministic). Defaults to 0.7.
+            `top_p` (float, optional): top_p represents how much to sample from the top of the distribution (controls diversity, 
+                0.5 excludes 50% of the distribution). Defaults to 1.
+            `freq_penalty` (float, optional): frequency_penalty represents how much to penalize new tokens based on their existing 
+                frequency (decreases likelihood of repeating words). Defaults to 0.07.
+            `pres_penalty` (float, optional): presence_penalty similar to frequency but based on whether they appear in the text so far 
+                (increases likelihood of new topics). Defaults to 0.2.
+                
+        returns:
+            str: summary of text
         """
         assert summary_prompt in [0, 1, 2, 3], "Invalid summary prompt"
         if summary_prompt == 0:
@@ -124,7 +135,7 @@ class OpenAPI_summarizer(OpenAPI):
             prompt += "\n-"
         
         # ensuring prompt + max_resp_tokens does not exceed max tokens for davinci-002
-        num_tokens_prompt = self.get_token_count(prompt)
+        num_tokens_prompt = self.get_token_count(prompt, exact=exact_token_count)
         total_tokens = num_tokens_prompt + max_resp_tokens
         assert total_tokens < self.MAX_TOKENS_S, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
                                                         (prompt: {num_tokens_prompt}, max_resp_tokens: {max_resp_tokens})"
@@ -133,15 +144,15 @@ class OpenAPI_summarizer(OpenAPI):
         response = openai.Completion.create(
             model=self.SUMMARY_MODEL,
             prompt=prompt,
-            max_tokens=total_tokens,    # max tokens to return
-            temperature=0.7,            # temperature represents how random the result is (1.0 is deterministic)
-            top_p=1,                    # top_p represents how much to sample from the top of the distribution (controls diversity, 0.5 excludes 50% of the distribution)
-            frequency_penalty=0.07,     # frequency_penalty represents how much to penalize new tokens based on their existing frequency (decreases likelihood of repeating words)
-            presence_penalty=0.2        # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
+            max_tokens=total_tokens,        # max tokens to return
+            temperature=temp,               # temperature represents how random the result is (1.0 is deterministic)
+            top_p=top_p,                    # top_p represents how much to sample from the top of the distribution (controls diversity, 0.5 excludes 50% of the distribution)
+            frequency_penalty=freq_penalty, # frequency_penalty represents how much to penalize new tokens based on their existing frequency (decreases likelihood of repeating words)
+            presence_penalty=pres_penalty   # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
             )
         return '-' + response.choices[0].text if bullet_points else response.choices[0].text
     
-    def summarize_texts(self, texts,max_resp_tokens=256, summary_prompt=0, bullet_points=False,
+    def summarize_texts(self, texts, max_resp_tokens=256, summary_prompt=0, bullet_points=False,
                         temperature=0.7,   
                         top_p=1,           
                         frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
