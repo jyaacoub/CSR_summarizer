@@ -32,6 +32,10 @@ def pdf_reader(file_path):
                     toc_dict[section_title] = toc_dict[section_title] + txt
                 else:
                     toc_dict[section_title] = txt
+                
+                # TODO: include page numbers in the dictionary
+                # end result should look like this:
+                # { section_title: { page_num: content }}
             except:
                 pass
         print(section_title)
