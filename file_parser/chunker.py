@@ -42,11 +42,11 @@ class Chunker:
         if tkn_count < self.max_tokens:
             return [text]
         else: # chunk then pass remaining to be chunked again
-            max_idx = self.max_tokens*CHAR_PER_TOKEN
-            new_tkn_count = self.token_counter(text[:max_idx], exact=True)
+            max_idx = self.max_tokens*CHAR_PER_TOKEN # use heuristic to get max index 
             # NOTE: the true max_idx could change depending on the text
             # to determine this algorithmically we would need to try smaller and smaller chunks 
             # until we get a chunk that is less than max_tokens (can be expensive)
+            new_tkn_count = self.token_counter(text[:max_idx], exact=True)
             assert new_tkn_count <= self.max_tokens, \
                 f"Chunker: Max index  is too large ({max_idx}: \
                     {new_tkn_count} > {self.max_tokens}). Heuristic method failed."
