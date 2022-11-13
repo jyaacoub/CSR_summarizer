@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 # %%
 tkn = TokenCounter(exact_token_count=True)
-chunker = Chunker(token_counter=tkn, max_tokens=250)
+chunker = Chunker(token_counter=tkn, max_tokens=300)
 srch_mdl = OpenAPI_search(token_counter=tkn)
 sum_mdl = OpenAPI_summarizer(token_counter=tkn)
 top_n = 10
@@ -36,7 +36,34 @@ for section in pdf_content:
 pdf_chunked.reset_index(drop=True, inplace=True)
     
 # %% semantic search
-pdf_chunked_scores = srch_mdl.get_scores(pdf_chunked, QRYS[1]).sort_values(by='scores', ascending=False)
+pdf_chunked_scores = srch_mdl.get_scores(pdf_chunked, QRYS[2]).sort_values(by='scores', ascending=False)
 
+
+# %%
+# getting the top_n chunks
+# capture all sections by looping through the chunks of each section until we reach n chunks
+# Sort of like in-order traversal of a tree where the branches are the different sections
+sections = list(pdf_content.keys())
+top_n_chunks = pd.DataFrame(columns=['text', 'section', 'chunk_no', 'scores'])
+for n in range(top_n):
+    s_idx = n % len(sections)
+    curr_section = sections[s_idx]
+    
+    # getting the ith chunk of the current section (i = n // len(sections))
+    i = n // len(sections)
+    
+    # Check if we have reached the end of the section
+    if i >= len(pdf_chunked_scores[pdf_chunked_scores['section'] == curr_section]):
+        continue
+        
+    # get the ith chunk of the current section and adding it to the top_n_chunks DF
+    ith_chunk = pdf_chunked_scores[pdf_chunked_scores['section'] == 
+                                   curr_section].iloc[i].to_frame().T
+    top_n_chunks = pd.concat([top_n_chunks, ith_chunk])
+    
+print(top_n_chunks)
+
+# %%
+top_n_chunks_h = pdf_chunked_scores.sort_values(by='scores', ascending=False).head(top_n)
 
 # %%
