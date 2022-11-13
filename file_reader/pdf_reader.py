@@ -40,7 +40,7 @@ def pdf_reader(file_path):
         print('\n')
     
     return toc_dict
-                
+
 
 
 
