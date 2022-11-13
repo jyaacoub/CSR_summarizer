@@ -179,7 +179,7 @@ class OpenAPI_summarizer(OpenAPI):
                         presence_penalty=0.2):
         """
         Gets text summaries for multiple documents in a single query for efficiency
-        #TODO: implement this
+        #TODO: implement this (https://github.com/shyamal-anadkat/eco-faqs/blob/main/faq_gen.py#L54)
         """
         pass
     
