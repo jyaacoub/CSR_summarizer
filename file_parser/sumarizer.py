@@ -12,4 +12,16 @@ OpenAPI_summarizer.summarize_text():
         - vary based on information density of text? - https://towardsdatascience.com/linguistic-complexity-measures-for-text-nlp-e4bf664bd660
 """
 
+from file_reader import pdf_reader
+
+class FileSummarizer:
+    def __init__(self, pdf_path):
+        self.pdf_contents = pdf_reader(pdf_path) # dictionary of sections and their contents
+        
+        
+    def summarize_file(self, text):
+        """
+        Summarizes a file using OpenAPI
+        """
+        pass
 
