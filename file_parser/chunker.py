@@ -2,6 +2,11 @@
 Used for smartly splitting up sections that are sent by the *file_reader*.
   - Here is where we might want to create further subsections from the sections given by `PDFReader` 
 """
+from tensorflow.keras import Input, Model
+from tensorflow.keras.layers import Embedding, LSTM, Concatenate, Dense
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import Tokenizer
+
 from common.constants import CHAR_PER_TOKEN
 from models.open_ai import OpenAPI_search, OpenAPI_summarizer
 from models.token_counter import TokenCounter
