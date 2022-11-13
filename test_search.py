@@ -11,7 +11,7 @@ import pandas as pd
 # %%
 openai.api_key = API_KEY
 
-qry = "carbon footprint"
+qry = "GHG emissions"
 # %%
 em_qry = get_embedding(qry, engine=OpenAPI_search.EMBEDDING_QRY_MODEL)
 em_texts = [get_embedding(x, engine=OpenAPI_search.EMBEDDING_DOC_MODEL) for x in tqdm(GOOGLE_CSR_RAND_TEXTS)]
