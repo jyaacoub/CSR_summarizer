@@ -20,7 +20,6 @@ Considerations for model chosen and setup:
     they relate to a query."                                                                            - OpenAI docs
 """
 
-import math
 from common.SECRETS import API_KEY
 from common.constants import CHAR_PER_TOKEN
 from models.token_counter import TokenCounter
@@ -28,7 +27,15 @@ from models.token_counter import TokenCounter
 import openai
 from openai.embeddings_utils import get_embedding, cosine_similarity
 
+import math, time
 import pandas as pd
+from tqdm import tqdm
+
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_random_exponential,
+)  # for exponential backoff
 
 class OpenAPI:
     def __init__(self, api_key:str=API_KEY, token_counter:TokenCounter=None):
@@ -60,8 +67,17 @@ class OpenAPI_search(OpenAPI):
         tkn_count = self.get_token_count(query)
         assert tkn_count <= self.MAX_TOKENS, \
             f"Query token count ({tkn_count}) exceeds max token limit ({self.MAX_TOKENS})"
+            
+        pbar = tqdm(total=len(snippets), desc=f"Getting embeddings; Will take under ~{len(snippets)}s...")
         # Getting the embeddings
-        snippets['emb'] = snippets.text.apply(lambda x: get_embedding(x, engine=self.EMBEDDING_DOC_MODEL))
+        @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(5))
+        def completion_with_backoff(text):
+            res = get_embedding(text, engine=self.EMBEDDING_DOC_MODEL)
+            tqdm.update(pbar, 1)
+            return res
+                
+        snippets['emb'] = snippets.text.apply(completion_with_backoff)
+        pbar.close()
         q_emb = get_embedding(query, engine=self.EMBEDDING_QRY_MODEL)
         
         # Determining similarity between query and each text snippet by embedding vector
