@@ -6,7 +6,7 @@ from common.constants import CHAR_PER_TOKEN
 
 
 class Chunker:
-    def __init__(self, max_tokens=2024):
+    def __init__(self, max_tokens=2024): #todo add token_counter
         self.max_tokens = max_tokens # max number of tokens in a chunk
 
     def chunk(self, text:str):
@@ -29,6 +29,9 @@ class Chunker:
         # first check to see if we even need to chunk (is the text longer than max_tokens?)
         if len(text) / CHAR_PER_TOKEN <= self.max_tokens:
             return [text]
+        else: # chunk then pass remaining to be chunked again
+            max_char_i = int(self.max_tokens * CHAR_PER_TOKEN)
+            return [text[:max_char_i]] + self.chunk(text[max_char_i:])
         
         
         pass

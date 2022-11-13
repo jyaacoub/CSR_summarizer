@@ -39,7 +39,7 @@ class FileSummarizer:
     def chunk_and_search(self, query:str, capture_all_sections=False):
         
         # chunking each section
-        self.pdf_content_chunked = pd.DataFrame(columns=['text', 'section', 'chunk_no'])
+        self.pdf_chunked = pd.DataFrame(columns=['text', 'section', 'chunk_no'])
         
         for section in self.pdf_content:
             chunks = self.chunker.chunk(self.pdf_content[section]['content'])
@@ -47,14 +47,14 @@ class FileSummarizer:
             df_section = pd.DataFrame({'text':chunks, 'section':section,'chunk_no':range(len(chunks))})
             
             # adding to main dataframe
-            self.pdf_content_chunked = pd.concat([self.pdf_content_chunked, df_section])
+            self.pdf_chunked = pd.concat([self.pdf_chunked, df_section])
 
         # Using semantic search to rate the most relevant chunks according to the query
         if query:
-            self.pdf_content_chunked = self.srch_mdl.get_scores(self.pdf_content_chunked, query)
-            self.pdf_content_chunked.sort_values(by='scores', ascending=False)
+            self.pdf_chunked = self.srch_mdl.get_scores(self.pdf_chunked, query)
+            self.pdf_chunked.sort_values(by='scores', ascending=False)
         else:
-            self.pdf_content_chunked['score'] = 1 # if no query, then all chunks are equally relevant
+            self.pdf_chunked['score'] = 1 # if no query, then all chunks are equally relevant
             
         # getting the top_n chunks
         if capture_all_sections:
@@ -70,14 +70,14 @@ class FileSummarizer:
                 i = n // len(sections)
                 
                 # Check if we have reached the end of the section
-                if i >= len(self.pdf_content_chunked[self.pdf_content_chunked['section'] == curr_section]):
+                if i >= len(self.pdf_chunked[self.pdf_chunked['section'] == curr_section]):
                     continue
                     
                 # get the ith chunk of the current section
-                top_n_chunks.append(self.pdf_content_chunked[self.pdf_content_chunked['section'] == curr_section].iloc[i])
+                top_n_chunks.append(self.pdf_chunked[self.pdf_chunked['section'] == curr_section].iloc[i])
         else:
             # just get the top_n chunks
-            top_n_chunks = self.pdf_content_chunked.sort_values(by='score', ascending=False).head(self.top_n)
+            top_n_chunks = self.pdf_chunked.sort_values(by='score', ascending=False).head(self.top_n)
     
     def summarize_file(self, query=None, capture_all_sections=False):
         """
