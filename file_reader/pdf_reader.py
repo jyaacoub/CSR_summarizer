@@ -29,9 +29,10 @@ def pdf_reader(file_path):
             try:
                 txt = pageObj.extract_text()
                 if toc_dict.get(section_title) is not None:
-                    toc_dict[section_title] = toc_dict[section_title] + txt
+                    toc_dict[section_title]["content"] = toc_dict[section_title]["content"] + txt + '\n' # updates the content
+                    toc_dict[section_title]["pages"].append(current_page) # adds the new page number to the current section
                 else:
-                    toc_dict[section_title] = txt
+                    toc_dict[section_title] = {"content": txt + '\n', "pages": [current_page]}
             except:
                 pass
         print(section_title)
@@ -41,7 +42,7 @@ def pdf_reader(file_path):
     
     return toc_dict
 
-
+pdf_reader("data/CSR_samples/google-2022-environmental-report.pdf")
 
 
 #UNUSED CODE FOR EXTRACTING PDF INTO FILE----------------------------------------------------------------------------------
