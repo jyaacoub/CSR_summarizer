@@ -55,6 +55,27 @@ class OpenAPI_search(OpenAPI):
         super().__init__(api_key, token_counter)
     
     
+    def get_doc_embedding(self, snippets:(pd.DataFrame or list)):
+        """Gets the embedding for a document
+
+        Args:
+            text (str): Text to get embedding for
+
+        Returns:
+            list: embedding vector
+        """            
+        pbar = tqdm(total=len(snippets), desc=f"Getting embeddings for scores (t<={len(snippets)}s)...")
+        # Getting the embeddings
+        @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(5))
+        def completion_with_backoff(text):
+            res = get_embedding(text, engine=self.EMBEDDING_DOC_MODEL)
+            tqdm.update(pbar, 1)
+            return res
+                
+        snippets['emb'] = snippets.text.apply(completion_with_backoff)
+        pbar.close()
+        return snippets    
+    
     def get_scores(self, snippets:(pd.DataFrame or list), query:str):
         """
         returns the similarity scores for each snippet with the query.
@@ -67,24 +88,15 @@ class OpenAPI_search(OpenAPI):
         tkn_count = self.get_token_count(query)
         assert tkn_count <= self.MAX_TOKENS, \
             f"Query token count ({tkn_count}) exceeds max token limit ({self.MAX_TOKENS})"
-            
-        pbar = tqdm(total=len(snippets), desc=f"Getting embeddings; Will take under ~{len(snippets)}s...")
-        # Getting the embeddings
-        @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(5))
-        def completion_with_backoff(text):
-            res = get_embedding(text, engine=self.EMBEDDING_DOC_MODEL)
-            tqdm.update(pbar, 1)
-            return res
-                
-        snippets['emb'] = snippets.text.apply(completion_with_backoff)
-        pbar.close()
+        
+        # checking for embedding column    
+        if 'emb' not in snippets.columns:
+            self.get_doc_embedding(snippets)
+        
         q_emb = get_embedding(query, engine=self.EMBEDDING_QRY_MODEL)
         
         # Determining similarity between query and each text snippet by embedding vector
         snippets['scores'] = snippets.emb.apply(lambda x: cosine_similarity(x, q_emb))
-        
-        # dropping the embeddings
-        snippets.drop(columns=['emb'], inplace=True)
         
         return snippets
     

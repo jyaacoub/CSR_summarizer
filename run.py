@@ -1,6 +1,7 @@
 # %%
 from file_reader.pdf_reader import pdf_reader
 from file_parser.chunker import Chunker
+from file_parser.sumarizer import FileSummarizer
 from models.open_ai import OpenAPI_summarizer, OpenAPI_search
 from models.token_counter import TokenCounter
 from common.constants import GOOGLE_CSR
@@ -9,61 +10,28 @@ import pandas as pd
 from tqdm import tqdm
 
 # %%
-tkn = TokenCounter(exact_token_count=True)
-chunker = Chunker(token_counter=tkn, max_tokens=300)
-srch_mdl = OpenAPI_search(token_counter=tkn)
-sum_mdl = OpenAPI_summarizer(token_counter=tkn)
-top_n = 10
+# tkn = TokenCounter(exact_token_count=True)
+# chunker = Chunker(token_counter=tkn, max_tokens=300)
+# srch_mdl = OpenAPI_search(token_counter=tkn)
+# sum_mdl = OpenAPI_summarizer(token_counter=tkn)
+# top_n = 10
 QRYS = ['environment', 
         'renewable energy', 
         'greenhouse gas (ghg) emmissions']
 
 
 # %%
-pdf_content = pdf_reader(GOOGLE_CSR) # looks like: {section: {"content":text, "pages": (int,int)}, ...}
-
-# %% chunking the content
-pdf_chunked = pd.DataFrame(columns=['text', 'section', 'chunk_no'])
-
-for section in pdf_content:
-    print('chunking section:', section)
-    chunks = chunker.chunk_sentence(pdf_content[section]['content'])
-    # convert to dataframe
-    df_section = pd.DataFrame({'text':chunks, 'section':section,
-                               'chunk_no':range(len(chunks))})
-    pdf_chunked = pd.concat([pdf_chunked, df_section])
-
-pdf_chunked.reset_index(drop=True, inplace=True)
-    
-# %% semantic search
-pdf_chunked_scores = srch_mdl.get_scores(pdf_chunked, QRYS[2]).sort_values(by='scores', ascending=False)
-
+fs = FileSummarizer(GOOGLE_CSR)
 
 # %%
-# getting the top_n chunks
-# capture all sections by looping through the chunks of each section until we reach n chunks
-# Sort of like in-order traversal of a tree where the branches are the different sections
-sections = list(pdf_content.keys())
-top_n_chunks = pd.DataFrame(columns=['text', 'section', 'chunk_no', 'scores'])
-for n in range(top_n):
-    s_idx = n % len(sections)
-    curr_section = sections[s_idx]
-    
-    # getting the ith chunk of the current section (i = n // len(sections))
-    i = n // len(sections)
-    
-    # Check if we have reached the end of the section
-    if i >= len(pdf_chunked_scores[pdf_chunked_scores['section'] == curr_section]):
-        continue
-        
-    # get the ith chunk of the current section and adding it to the top_n_chunks DF
-    ith_chunk = pdf_chunked_scores[pdf_chunked_scores['section'] == 
-                                   curr_section].iloc[i].to_frame().T
-    top_n_chunks = pd.concat([top_n_chunks, ith_chunk])
-    
-print(top_n_chunks)
+top_chunks_0 = fs.chunk_and_search(QRYS[0])
+top_chunks_1 = fs.chunk_and_search(QRYS[1])
+top_chunks_2 = fs.chunk_and_search(QRYS[2])
 
-# %%
-top_n_chunks_h = pdf_chunked_scores.sort_values(by='scores', ascending=False).head(top_n)
+# %% Saving chunks to csv
+top_chunks_0.drop(columns=['emb']).to_excel('data/chunk_search/chunks_0.xlsx')
+top_chunks_1.drop(columns=['emb']).to_excel('data/chunk_search/chunks_1.xlsx')
+top_chunks_2.drop(columns=['emb']).to_excel('data/chunk_search/chunks_2.xlsx')
+
 
 # %%
