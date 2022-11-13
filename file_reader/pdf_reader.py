@@ -7,7 +7,7 @@ def pdf_reader(file_path):
     toc_dict = {} #where dictionary is stored
     page_num = [] #stores the page numbers of each section
 
-    print("extracting page numbers for each section...")
+    # print("extracting page numbers for each section...")
     for outline in pdf.outlines: # adds all the section page numbers into a 2d array [page number, section title]
         try:
             page_num.append([pdf.getDestinationPageNumber(outline)+1, outline.title])
@@ -15,8 +15,8 @@ def pdf_reader(file_path):
             pass
 
     page_num.append([pdf.numPages, "Last Page"]) # add the last page of the document
-    print(page_num)
-    print('')
+    # print(page_num)
+    # print('')
 
     for i in range(len(page_num)-1): #loop for adding all the content into the dictionary
         current_section_start = page_num[i][0]
@@ -24,7 +24,7 @@ def pdf_reader(file_path):
         section_title = page_num[i][1]
 
         for current_page in range(current_section_start, max(next_section_start, current_section_start+1)):
-            print(f"Current Page iterating: {current_page}")
+            # print(f"Current Page iterating: {current_page}")
             pageObj = pdf.getPage(current_page)
             try:
                 txt = pageObj.extract_text()
@@ -34,10 +34,10 @@ def pdf_reader(file_path):
                     toc_dict[section_title] = {"content": txt + '\n', "pages": [current_section_start, max(next_section_start, current_section_start+1)-1]}
             except:
                 pass
-        print(section_title)
-        print(''.center(100, '-'))
-        print(toc_dict[section_title])
-        print('\n')
+        # print(section_title)
+        # print(''.center(100, '-'))
+        # print(toc_dict[section_title])
+        # print('\n')
     
     return toc_dict
 
