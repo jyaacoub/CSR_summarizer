@@ -15,9 +15,12 @@ class TokenCounter:
         self.tokenizer = tokenizer
         self.exact_token_count = exact_token_count
         
-    def _load_tokenizer(self):
-        from transformers import GPT2Tokenizer
-        self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+    def _load_tokenizer(self, tokenizer=None):
+        if tokenizer is None:
+            from transformers import GPT2Tokenizer
+            self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+        else:
+            self.tokenizer = tokenizer
         return self.tokenizer
     
     def __call__(self, text, exact=None): # non-static method so that we dont load the tokenizer multiple times
@@ -29,6 +32,6 @@ class TokenCounter:
             if self.tokenizer is None: # lazy load tokenizer because it takes a while
                 self._load_tokenizer()
             res = self.tokenizer(text)
-            return len(res["input_ids"])
+            return len(res["input_ids"]) # we dont care about the embedding just the number of tokens
         else:
             return math.ceil(len(text)/CHAR_PER_TOKEN) # one token is roughly 4 characters
