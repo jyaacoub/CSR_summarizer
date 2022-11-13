@@ -26,13 +26,13 @@ with tqdm(total=8) as pbar:
                                 temperature=0.7,   
                                 top_p=1,           
                                 frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
-                                presence_penalty=0.2)
+                                presence_penalty=0.2, exact_token_count=False)
         pbar.update(1)
         resF = op.summarize_text(text, max_resp_tokens=57, summary_prompt=i, bullet_points=True,
                                 temperature=0.7,   
                                 top_p=1,           
                                 frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
-                                presence_penalty=0.2)
+                                presence_penalty=0.2, exact_token_count=False)
         pbar.update(1)
 
         samples.append((resT, resF))

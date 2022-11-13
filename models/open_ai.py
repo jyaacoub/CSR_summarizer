@@ -22,13 +22,16 @@ Considerations for model chosen and setup:
 
 import math
 from common.SECRETS import API_KEY
+from common.constants import CHAR_PER_TOKEN
 
 import openai
+from openai.embeddings_utils import get_embedding, cosine_similarity
 
-class OpenAPI:
-    TOKENS_PER_CHAR = 4.45 # one token is roughly 4 characters (gpt2 tokenizer)
-    
+import pandas as pd
+
+class OpenAPI:    
     def __init__(self, api_key=API_KEY, tokenizer=None):
+        self.api_key = api_key
         openai.api_key = api_key
         self.tokenizer = tokenizer
     
@@ -44,35 +47,37 @@ class OpenAPI:
             res = self.tokenizer(text)
             return len(res["input_ids"])
         else:
-            return math.ceil(len(text)/self.TOKENS_PER_CHAR) # one token is roughly 4 characters
+            return math.ceil(len(text)/CHAR_PER_TOKEN) # one token is roughly 4 characters
     
-
 class OpenAPI_search(OpenAPI):
-    EMMBEDDING_DOC_MODEL = "text-search-curie-doc-001"
-    EMMBEDDING_query_MODEL = "text-search-curie-query-001"
+    EMBEDDING_DOC_MODEL = "text-search-curie-doc-001" # using curie for efficiency (davinci is more accurate but way slower)
+    EMBEDDING_QRY_MODEL = "text-search-curie-query-001"
     
     MAX_TOKENS_E = 2048 # max tokens for embedding model
     def __init__(self, api_key=API_KEY, tokenizer=None):
-        self.api_key = api_key
-        openai.api_key = api_key
-        self.tokenizer = tokenizer
+        super().__init__(api_key, tokenizer)
     
-    def _get_doc_embedding(self, text, model="text-search-curie-doc-001"):
-        openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
+    def semantic_search(self, snippets:(list or pd.Series), query:str): # example: https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
+        """Gets the most relevant text from a document based on a query
+
+        Args:
+            snippets (pd.Series or list): Text snippets to search through
+            query (str): the query text used to match the most relevant text
+            
+        Returns:
+            pd.DataFrame: dataframe sorted by relevance score with columns: text, embedding, similarity
+        """
+        snippets = pd.DataFrame(snippets, columns=["text"])
         
-    def semantic_search(self, text, query): # example: https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
-        """Gets the most relevant text from a document based on a query"""
+        # Getting the embeddings
+        snippets['embedding'] = snippets.text.apply(lambda x: get_embedding(x, engine=self.EMBEDDING_DOC_MODEL))
+        q_emb = get_embedding(query, engine=self.EMBEDDING_QRY_MODEL)
         
-        # get semantic scores for query
+        # Determining similarity between query and each text snippet by embedding vector
+        snippets['similarity'] = snippets.embedding.apply(lambda x: cosine_similarity(x, q_emb))
         
-        # loop through documents and get semantic scores
-        
-        # compare query scores to document scores
-        pass
-    
-    def _get_semantics(self, document):
-        """Returns the semantic score(s) of document(s) using OpenAI's API"""
-        pass
+        # Sorting by similarity and returning result
+        return snippets.sort_values(by='similarity', ascending=False) 
 
 class OpenAPI_summarizer(OpenAPI):
     SUMMARY_MODEL = "text-davinci-002" # model to use for summarization
@@ -80,31 +85,40 @@ class OpenAPI_summarizer(OpenAPI):
     # NOTE: Max tokens includes the prompt
     
     def __init__(self, api_key=API_KEY, tokenizer=None):
-        self.api_key = api_key
-        openai.api_key = api_key
-        self.tokenizer = tokenizer
+        super().__init__(api_key, tokenizer)
     
-    def summarize_text(self, text, max_resp_tokens=256, summary_prompt=0, bullet_points=False,
-                        temperature=0.7,   
+    def summarize_text(self, text, exact_token_count=False, max_resp_tokens=256, 
+                        summary_prompt=0, bullet_points=False,
+                        temp=0.7,   
                         top_p=1,           
-                        frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
-                        presence_penalty=0.2): # increases the number of topics covered in the summary
-        """ 
+                        freq_penalty=0.07, # should stay low to avoid just coming up with unrelated words
+                        pres_penalty=0.2): # increases the number of topics covered in the summary
+        """        
         Simple function that takes string input and returns a summary of the text via OpenAI's API 
         
-        A few ways we can prompt the model to write a summary:
-            0 - "Summarize the following text: \n\n<text>"
-            1 - "<text> \ntd;dr:" - https://medium.com/geekculture/a-paper-summarizer-with-python-and-gpt-3-2c718bc3bc88
-            2 - "<text> \nSummary:"
-            3 - "<text> \nSummary of the above text:"
+        A few ways we can prompt the model to write a summary (`summary_prompt`):
+            0 - "Summarize the following text: \\n\\n<text>"
+            1 - "<text> \\ntl;dr:"
+            2 - "<text> \\nSummary:"
+            3 - "<text> \\nSummary of the above text:"
             
-        We can also specify if we want it as a bulleted list:
+        Args:
+            `text` (str): text to summarize
+            `exact_token_count` (bool, optional): if True, will uses a expensive gpt2 tokenizer to get exact token count for text. 
+                Uses a heuristic of 4.45 tokens per character if False. Defaults to False.
+            `max_resp_tokens` (int, optional): max number of tokens for the summary. Defaults to 256.
+            `bullet_points` (bool, optional): If True, will foce the summary to be in the form of bullet points. Defaults to False.
             
-        We can also vary the max tokens to be returned (this needs to be tuned as to not miss out important technical details)
-            - vary depending on the length of the text?
-            - set to specific number?
-            - vary based on information density of text? - https://towardsdatascience.com/linguistic-complexity-measures-for-text-nlp-e4bf664bd660
-        
+            `temp` (float, optional): temperature represents how random the result is (1.0 is deterministic). Defaults to 0.7.
+            `top_p` (float, optional): top_p represents how much to sample from the top of the distribution (controls diversity, 
+                0.5 excludes 50% of the distribution). Defaults to 1.
+            `freq_penalty` (float, optional): frequency_penalty represents how much to penalize new tokens based on their existing 
+                frequency (decreases likelihood of repeating words). Defaults to 0.07.
+            `pres_penalty` (float, optional): presence_penalty similar to frequency but based on whether they appear in the text so far 
+                (increases likelihood of new topics). Defaults to 0.2.
+                
+        returns:
+            str: summary of text
         """
         assert summary_prompt in [0, 1, 2, 3], "Invalid summary prompt"
         if summary_prompt == 0:
@@ -120,7 +134,7 @@ class OpenAPI_summarizer(OpenAPI):
             prompt += "\n-"
         
         # ensuring prompt + max_resp_tokens does not exceed max tokens for davinci-002
-        num_tokens_prompt = self.get_token_count(prompt)
+        num_tokens_prompt = self.get_token_count(prompt, exact=exact_token_count)
         total_tokens = num_tokens_prompt + max_resp_tokens
         assert total_tokens < self.MAX_TOKENS_S, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
                                                         (prompt: {num_tokens_prompt}, max_resp_tokens: {max_resp_tokens})"
@@ -129,21 +143,22 @@ class OpenAPI_summarizer(OpenAPI):
         response = openai.Completion.create(
             model=self.SUMMARY_MODEL,
             prompt=prompt,
-            max_tokens=total_tokens,    # max tokens to return
-            temperature=0.7,            # temperature represents how random the result is (1.0 is deterministic)
-            top_p=1,                    # top_p represents how much to sample from the top of the distribution (controls diversity, 0.5 excludes 50% of the distribution)
-            frequency_penalty=0.07,     # frequency_penalty represents how much to penalize new tokens based on their existing frequency (decreases likelihood of repeating words)
-            presence_penalty=0.2        # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
+            max_tokens=total_tokens,        # max tokens to return
+            temperature=temp,               # temperature represents how random the result is (1.0 is deterministic)
+            top_p=top_p,                    # top_p represents how much to sample from the top of the distribution (controls diversity, 0.5 excludes 50% of the distribution)
+            frequency_penalty=freq_penalty, # frequency_penalty represents how much to penalize new tokens based on their existing frequency (decreases likelihood of repeating words)
+            presence_penalty=pres_penalty   # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
             )
         return '-' + response.choices[0].text if bullet_points else response.choices[0].text
     
-    def summarize_texts(self, texts,max_resp_tokens=256, summary_prompt=0, bullet_points=False,
+    def summarize_texts(self, texts, max_resp_tokens=256, summary_prompt=0, bullet_points=False,
                         temperature=0.7,   
                         top_p=1,           
                         frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
                         presence_penalty=0.2):
         """
         Gets text summaries for multiple documents in a single query for efficiency
+        #TODO: implement this
         """
         pass
     
