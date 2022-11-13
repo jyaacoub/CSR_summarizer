@@ -23,9 +23,7 @@ class Chunker:
     def __init__(self, max_tokens=2024):
         self.max_tokens = max_tokens # max number of tokens in a chunk
 
-        """
-        Cuts off a chunk at every '.' and stores it in chunked_list as well as returns the list
-        """
+    #Cuts off a chunk at every '.' and stores it in chunked_list as well as returns the list
     def chunk_sentence(self, text:str):
         # first check to see if we even need to chunk (is the text longer than max_tokens?)
         if len(text) / CHAR_PER_TOKEN <= self.max_tokens:
