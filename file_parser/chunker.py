@@ -6,10 +6,10 @@ from common.constants import CHAR_PER_TOKEN
 
 
 class Chunker:
-    def __init__(self, max_tokens=1024):
+    def __init__(self, max_tokens=2024):
         self.max_tokens = max_tokens # max number of tokens in a chunk
 
-    def chunk(self, text):
+    def chunk(self, text:str):
         """
         Chunks text into smaller sections that are less than max_tokens in length
         
@@ -25,6 +25,10 @@ class Chunker:
         Returns:
             list: list of strings that are the chunks of text
         """
+        
+        # first check to see if we even need to chunk (is the text longer than max_tokens?)
+        if len(text) / CHAR_PER_TOKEN <= self.max_tokens:
+            return [text]
         
         
         pass
