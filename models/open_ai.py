@@ -23,44 +23,29 @@ Considerations for model chosen and setup:
 import math
 from common.SECRETS import API_KEY
 from common.constants import CHAR_PER_TOKEN
+from models.token_counter import TokenCounter
 
 import openai
 from openai.embeddings_utils import get_embedding, cosine_similarity
 
 import pandas as pd
 
-class OpenAPI:    
-    def __init__(self, api_key=API_KEY, tokenizer=None):
+class OpenAPI:
+    def __init__(self, api_key:str=API_KEY, token_counter:TokenCounter=None):
         self.api_key = api_key
         openai.api_key = api_key
-        self.tokenizer = tokenizer
+        self.token_counter = token_counter if token_counter is not None else TokenCounter() # allows for sharing of same tokenizer
         
-    def load_tokenizer(self):
-        from transformers import GPT2Tokenizer
-        self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-        return self.tokenizer
-    
-    def get_token_count(self, text, exact=True): # non-static method so that we dont load the tokenizer multiple times
-        """
-            Returns the number of tokens in text
-            using heuristic of 4.45 tokens per character is a decent approximation
-        """
-        if exact:
-            if self.tokenizer is None: # lazy load tokenizer because it takes a while
-                from transformers import GPT2Tokenizer
-                self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-            res = self.tokenizer(text)
-            return len(res["input_ids"])
-        else:
-            return math.ceil(len(text)/CHAR_PER_TOKEN) # one token is roughly 4 characters
-    
+    def get_token_count(self, text, exact=None):
+        return self.token_counter(text, exact)
+
 class OpenAPI_search(OpenAPI):
     EMBEDDING_DOC_MODEL = "text-search-curie-doc-001" # using curie for efficiency (davinci is more accurate but way slower)
     EMBEDDING_QRY_MODEL = "text-search-curie-query-001"
     
     MAX_TOKENS = 2048 # max tokens for embedding model
-    def __init__(self, api_key=API_KEY, tokenizer=None):
-        super().__init__(api_key, tokenizer)
+    def __init__(self, api_key:str=API_KEY, token_counter:TokenCounter=None):
+        super().__init__(api_key, token_counter)
     
     
     def get_scores(self, snippets:(pd.DataFrame or list), query:str):
@@ -71,6 +56,10 @@ class OpenAPI_search(OpenAPI):
             snippets (pd.DataFrame): snippets to search through as a dataframe with column "text"
             query (str): the query text used to match the most relevant text
         """
+        # making sure token count is within the max token limit
+        tkn_count = self.get_token_count(query)
+        assert tkn_count <= self.MAX_TOKENS, \
+            f"Query token count ({tkn_count}) exceeds max token limit ({self.MAX_TOKENS})"
         # Getting the embeddings
         snippets['emb'] = snippets.text.apply(lambda x: get_embedding(x, engine=self.EMBEDDING_DOC_MODEL))
         q_emb = get_embedding(query, engine=self.EMBEDDING_QRY_MODEL)
@@ -105,10 +94,10 @@ class OpenAPI_summarizer(OpenAPI):
     MAX_TOKENS = 4000 # max tokens for SUMMARY MODEL (davinci-002) - https://beta.openai.com/docs/models/gpt-3
     # NOTE: Max tokens includes the prompt
     
-    def __init__(self, api_key=API_KEY, tokenizer=None):
-        super().__init__(api_key, tokenizer)
+    def __init__(self, api_key:str=API_KEY, token_counter:TokenCounter=None):
+        super().__init__(api_key, token_counter)
     
-    def summarize_text(self, text, exact_token_count=False, max_resp_tokens=256, 
+    def summarize_text(self, text, max_resp_tokens=256, 
                         summary_prompt=0, bullet_points=False,
                         temp=0.7,   
                         top_p=1,           
@@ -125,8 +114,6 @@ class OpenAPI_summarizer(OpenAPI):
             
         Args:
             `text` (str): text to summarize
-            `exact_token_count` (bool, optional): if True, will uses a expensive gpt2 tokenizer to get exact token count for text. 
-                Uses a heuristic of 4.45 tokens per character if False. Defaults to False.
             `max_resp_tokens` (int, optional): max number of tokens for the summary. Defaults to 256.
             `bullet_points` (bool, optional): If True, will foce the summary to be in the form of bullet points. Defaults to False.
             
@@ -155,7 +142,7 @@ class OpenAPI_summarizer(OpenAPI):
             prompt += "\n-"
         
         # ensuring prompt + max_resp_tokens does not exceed max tokens for davinci-002
-        num_tokens_prompt = self.get_token_count(prompt, exact=exact_token_count)
+        num_tokens_prompt = self.get_token_count(prompt)
         total_tokens = num_tokens_prompt + max_resp_tokens
         assert total_tokens < self.MAX_TOKENS, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
                                                         (prompt: {num_tokens_prompt}, max_resp_tokens: {max_resp_tokens})"
