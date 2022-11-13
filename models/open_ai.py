@@ -97,9 +97,9 @@ class OpenAPI_summarizer(OpenAPI):
         """        
         Simple function that takes string input and returns a summary of the text via OpenAI's API 
         
-        A few ways we can prompt the model to write a summary:
+        A few ways we can prompt the model to write a summary (`summary_prompt`):
             0 - "Summarize the following text: \\n\\n<text>"
-            1 - "<text> \\ntl;dr:" - https://medium.com/geekculture/a-paper-summarizer-with-python-and-gpt-3-2c718bc3bc88
+            1 - "<text> \\ntl;dr:"
             2 - "<text> \\nSummary:"
             3 - "<text> \\nSummary of the above text:"
             

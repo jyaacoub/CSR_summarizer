@@ -1,4 +1,8 @@
 """
+uses `OpenAPI` to summarize pdfs
+  - Here is where we might want to create futher subsections from the sections given by `PDFReader` (see `chunker.py`)
+  - Keeps track of the summary trace (sort of like this: https://openaipublic.blob.core.windows.net/recursive-book-summ/website/index.html)
+
 Considerations for generating a file summary:
 
 OpenAPI_summarizer.summarize_text():
