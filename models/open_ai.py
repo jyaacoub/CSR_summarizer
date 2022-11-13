@@ -34,6 +34,11 @@ class OpenAPI:
         self.api_key = api_key
         openai.api_key = api_key
         self.tokenizer = tokenizer
+        
+    def load_tokenizer(self):
+        from transformers import GPT2Tokenizer
+        self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+        return self.tokenizer
     
     def get_token_count(self, text, exact=True): # non-static method so that we dont load the tokenizer multiple times
         """
@@ -53,11 +58,32 @@ class OpenAPI_search(OpenAPI):
     EMBEDDING_DOC_MODEL = "text-search-curie-doc-001" # using curie for efficiency (davinci is more accurate but way slower)
     EMBEDDING_QRY_MODEL = "text-search-curie-query-001"
     
-    MAX_TOKENS_E = 2048 # max tokens for embedding model
+    MAX_TOKENS = 2048 # max tokens for embedding model
     def __init__(self, api_key=API_KEY, tokenizer=None):
         super().__init__(api_key, tokenizer)
     
-    def semantic_search(self, snippets:(list or pd.Series), query:str): # example: https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
+    
+    def get_scores(self, snippets:(pd.DataFrame or list), query:str):
+        """
+        returns the similarity scores for each snippet with the query.
+
+        Args:
+            snippets (pd.DataFrame): snippets to search through as a dataframe with column "text"
+            query (str): the query text used to match the most relevant text
+        """
+        # Getting the embeddings
+        snippets['emb'] = snippets.text.apply(lambda x: get_embedding(x, engine=self.EMBEDDING_DOC_MODEL))
+        q_emb = get_embedding(query, engine=self.EMBEDDING_QRY_MODEL)
+        
+        # Determining similarity between query and each text snippet by embedding vector
+        snippets['scores'] = snippets.emb.apply(lambda x: cosine_similarity(x, q_emb))
+        
+        # dropping the embeddings
+        snippets.drop(columns=['emb'], inplace=True)
+        
+        return snippets
+    
+    def semantic_search(self, snippets:(pd.DataFrame or list), query:str, top_n): # example: https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
         """Gets the most relevant text from a document based on a query
 
         Args:
@@ -67,21 +93,16 @@ class OpenAPI_search(OpenAPI):
         Returns:
             pd.DataFrame: dataframe sorted by relevance score with columns: text, embedding, similarity
         """
-        snippets = pd.DataFrame(snippets, columns=["text"])
+        snippets = pd.DataFrame(snippets, columns=["text"]) if not isinstance(snippets, pd.DataFrame) else snippets
         
-        # Getting the embeddings
-        snippets['embedding'] = snippets.text.apply(lambda x: get_embedding(x, engine=self.EMBEDDING_DOC_MODEL))
-        q_emb = get_embedding(query, engine=self.EMBEDDING_QRY_MODEL)
-        
-        # Determining similarity between query and each text snippet by embedding vector
-        snippets['similarity'] = snippets.embedding.apply(lambda x: cosine_similarity(x, q_emb))
+        snippets = self.get_scores(snippets, query)
         
         # Sorting by similarity and returning result
-        return snippets.sort_values(by='similarity', ascending=False) 
+        return snippets.sort_values(by='scores', ascending=False).head(top_n)
 
 class OpenAPI_summarizer(OpenAPI):
     SUMMARY_MODEL = "text-davinci-002" # model to use for summarization
-    MAX_TOKENS_S = 4000 # max tokens for SUMMARY MODEL (davinci-002) - https://beta.openai.com/docs/models/gpt-3
+    MAX_TOKENS = 4000 # max tokens for SUMMARY MODEL (davinci-002) - https://beta.openai.com/docs/models/gpt-3
     # NOTE: Max tokens includes the prompt
     
     def __init__(self, api_key=API_KEY, tokenizer=None):
@@ -136,7 +157,7 @@ class OpenAPI_summarizer(OpenAPI):
         # ensuring prompt + max_resp_tokens does not exceed max tokens for davinci-002
         num_tokens_prompt = self.get_token_count(prompt, exact=exact_token_count)
         total_tokens = num_tokens_prompt + max_resp_tokens
-        assert total_tokens < self.MAX_TOKENS_S, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
+        assert total_tokens < self.MAX_TOKENS, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
                                                         (prompt: {num_tokens_prompt}, max_resp_tokens: {max_resp_tokens})"
         
         # Checks text size, returns error if larger than max tokens
