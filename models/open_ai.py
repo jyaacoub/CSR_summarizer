@@ -24,11 +24,15 @@ import math
 from common.SECRETS import API_KEY
 
 import openai
+from openai.embeddings_utils import get_embedding, cosine_similarity
+
+import pandas as pd
 
 class OpenAPI:
     TOKENS_PER_CHAR = 4.45 # one token is roughly 4 characters (gpt2 tokenizer)
     
     def __init__(self, api_key=API_KEY, tokenizer=None):
+        self.api_key = api_key
         openai.api_key = api_key
         self.tokenizer = tokenizer
     
@@ -46,33 +50,35 @@ class OpenAPI:
         else:
             return math.ceil(len(text)/self.TOKENS_PER_CHAR) # one token is roughly 4 characters
     
-
 class OpenAPI_search(OpenAPI):
-    EMMBEDDING_DOC_MODEL = "text-search-curie-doc-001"
-    EMMBEDDING_query_MODEL = "text-search-curie-query-001"
+    EMBEDDING_DOC_MODEL = "text-search-curie-doc-001" # using curie for efficiency (davinci is more accurate but way slower)
+    EMBEDDING_QRY_MODEL = "text-search-curie-query-001"
     
     MAX_TOKENS_E = 2048 # max tokens for embedding model
     def __init__(self, api_key=API_KEY, tokenizer=None):
-        self.api_key = api_key
-        openai.api_key = api_key
-        self.tokenizer = tokenizer
+        super().__init__(api_key, tokenizer)
     
-    def _get_doc_embedding(self, text, model="text-search-curie-doc-001"):
-        openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
+    def semantic_search(self, snippets:(list or pd.Series), query:str): # example: https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
+        """Gets the most relevant text from a document based on a query
+
+        Args:
+            snippets (pd.Series or list): Text snippets to search through
+            query (str): the query text used to match the most relevant text
+            
+        Returns:
+            pd.DataFrame: dataframe sorted by relevance score with columns: text, embedding, similarity
+        """
+        snippets = pd.DataFrame(snippets, columns=["text"])
         
-    def semantic_search(self, text, query): # example: https://github.com/openai/openai-cookbook/blob/main/examples/Semantic_text_search_using_embeddings.ipynb
-        """Gets the most relevant text from a document based on a query"""
+        # Getting the embeddings
+        snippets['embedding'] = snippets.text.apply(lambda x: get_embedding(x, engine=self.EMBEDDING_DOC_MODEL))
+        q_emb = get_embedding(query, engine=self.EMBEDDING_QRY_MODEL)
         
-        # get semantic scores for query
+        # Determining similarity between query and each text snippet by embedding vector
+        snippets['similarity'] = snippets.embedding.apply(lambda x: cosine_similarity(x, q_emb))
         
-        # loop through documents and get semantic scores
-        
-        # compare query scores to document scores
-        pass
-    
-    def _get_semantics(self, document):
-        """Returns the semantic score(s) of document(s) using OpenAI's API"""
-        pass
+        # Sorting by similarity and returning result
+        return snippets.sort_values(by='similarity', ascending=False) 
 
 class OpenAPI_summarizer(OpenAPI):
     SUMMARY_MODEL = "text-davinci-002" # model to use for summarization
@@ -80,9 +86,7 @@ class OpenAPI_summarizer(OpenAPI):
     # NOTE: Max tokens includes the prompt
     
     def __init__(self, api_key=API_KEY, tokenizer=None):
-        self.api_key = api_key
-        openai.api_key = api_key
-        self.tokenizer = tokenizer
+        super().__init__(api_key, tokenizer)
     
     def summarize_text(self, text, max_resp_tokens=256, summary_prompt=0, bullet_points=False,
                         temperature=0.7,   
@@ -144,6 +148,7 @@ class OpenAPI_summarizer(OpenAPI):
                         presence_penalty=0.2):
         """
         Gets text summaries for multiple documents in a single query for efficiency
+        #TODO: implement this
         """
         pass
     
