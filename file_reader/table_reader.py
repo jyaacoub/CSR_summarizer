@@ -3,8 +3,8 @@ import tabula
 import os
 
 # def table_reader(file_path):
-file_path = "data/CSR_samples/google-2022-environmental-report.pdf"
-tables = tabula.read_pdf(file_path, pages="all")
+file_path = "data/CSR_samples/foo.pdf"
+tables = tabula.read_pdf(file_path, pages="all", multiple_tables=True)
 
 #saving into excel sheet for testing purposes
 folder_name = "tables"
