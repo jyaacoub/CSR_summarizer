@@ -3,6 +3,7 @@ Used for smartly splitting up sections that are sent by the *file_reader*.
   - Here is where we might want to create further subsections from the sections given by `PDFReader` 
 """
 from common.constants import CHAR_PER_TOKEN
+from models.open_ai import OpenAPI_search, OpenAPI_summarizer
 from models.token_counter import TokenCounter
 
 """
@@ -19,40 +20,48 @@ Returns:
 """
 
 class Chunker:
-    def __init__(self, max_tokens=2024, token_counter:TokenCounter=None):
+    def __init__(self, max_tokens=min(OpenAPI_search.MAX_TOKENS, OpenAPI_summarizer.MAX_TOKENS), 
+                        token_counter:TokenCounter=None):
         self.max_tokens = max_tokens # max number of tokens in a chunk
         self.token_counter = token_counter if token_counter is not None else TokenCounter()
 
     
-    def chunk_sentence(self, text:str, exact=False):
+    def chunk_sentence(self, text:str):
         """
         cuttoff at last sentence before max_tokens
 
         Args:
             text (str): text to chunk
-            exact (bool, optional): using gpt2 to get exact token counts. Defaults to False.
 
         Returns:
             list: list of chunks
         """
         
         # first check to see if we even need to chunk (is the text longer than max_tokens?)
-        tkn_count = self.token_counter(text, exact=exact)
+        tkn_count = self.token_counter(text, exact=True)
         
         if tkn_count < self.max_tokens:
             return [text]
         else: # chunk then pass remaining to be chunked again
-            max_idx = self.max_tokens*CHAR_PER_TOKEN # use heuristic to get max index 
-            # NOTE: the true max_idx could change depending on the text
-            # to determine this algorithmically we would need to try smaller and smaller chunks 
-            # until we get a chunk that is less than max_tokens (can be expensive)
-            new_tkn_count = self.token_counter(text[:max_idx], exact=True)
-            assert new_tkn_count <= self.max_tokens, \
+            max_idx = int(self.max_tokens*CHAR_PER_TOKEN) # use heuristic to get max index 
+            
+            # the true max_idx could change depending on the text so we need to check token count again
+            tkn_count = self.token_counter(text[:max_idx], exact=True)
+            tkns_remaining = tkn_count - self.max_tokens
+            while tkns_remaining >= 0: # while we are still over the max_tokens
+                # decrease using heuristic and tokens remaining
+                max_idx -= CHAR_PER_TOKEN*tkns_remaining
+                max_idx = int(max_idx)
+                tkn_count = self.token_counter(text[:max_idx], exact=True)
+                tkns_remaining = tkn_count - self.max_tokens
+            
+            assert tkn_count <= self.max_tokens, \
                 f"Chunker: Max index  is too large ({max_idx}: \
-                    {new_tkn_count} > {self.max_tokens}). Heuristic method failed."
+                    {tkn_count} > {self.max_tokens}). Heuristic method failed."
             
             # finding the last period in the first chunk < max_tokens
-            period_idx = text.rfind('.', 0, )
+            period_idx = text.rfind('.', 0, max_idx) + 1 # +1 to include the period
+            assert period_idx < max_idx, 'Error: No period found in first chunk?'
             if period_idx == -1: # if no period found, then just cut off at max_tokens
                 period_idx = max_idx
-            return [text[:period_idx]] + self.chunk(text[period_idx:])
+            return [text[:period_idx]] + self.chunk_sentence(text[period_idx:])
