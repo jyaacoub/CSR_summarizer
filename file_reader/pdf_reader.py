@@ -42,7 +42,8 @@ def pdf_reader(file_path):
     
     return toc_dict
 
-pdf_reader("data/CSR_samples/google-2022-environmental-report.pdf")
+if __name__ == "__main__":
+    pdf_reader("data/CSR_samples/google-2022-environmental-report.pdf")
 
 
 #UNUSED CODE FOR EXTRACTING PDF INTO FILE----------------------------------------------------------------------------------
