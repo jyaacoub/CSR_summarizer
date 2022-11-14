@@ -176,15 +176,20 @@ class OpenAPI_summarizer(OpenAPI):
         assert total_tokens < self.MAX_TOKENS, f"Prompt + max_resp_tokens exceeds max tokens for davinci-002 \
                                                         (prompt: {num_tokens_prompt}, max_resp_tokens: {max_resp_tokens})"
         
-        # Checks text size, returns error if larger than max tokens
-        response = openai.Completion.create(
-            model=self.SUMMARY_MODEL,
-            prompt=prompt,
-            max_tokens=total_tokens,        # max tokens to return
-            temperature=temp,               # temperature represents how random the result is (1.0 is deterministic)
-            top_p=top_p,                    # top_p represents how much to sample from the top of the distribution (controls diversity, 0.5 excludes 50% of the distribution)
-            frequency_penalty=freq_penalty, # frequency_penalty represents how much to penalize new tokens based on their existing frequency (decreases likelihood of repeating words)
-            presence_penalty=pres_penalty   # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
-            )
+        # getting summary
+        @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(5))
+        def completion_with_backoff(text):            
+            # Checks text size, returns error if larger than max tokens
+            return openai.Completion.create(
+                model=self.SUMMARY_MODEL,
+                prompt=prompt,
+                max_tokens=total_tokens,        # max tokens to return
+                temperature=temp,               # temperature represents how random the result is (1.0 is deterministic)
+                top_p=top_p,                    # top_p represents how much to sample from the top of the distribution (controls diversity, 0.5 excludes 50% of the distribution)
+                frequency_penalty=freq_penalty, # frequency_penalty represents how much to penalize new tokens based on their existing frequency (decreases likelihood of repeating words)
+                presence_penalty=pres_penalty   # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
+                )
+            
+        response = completion_with_backoff(prompt)
         return '-' + response.choices[0].text if bullet_points else response.choices[0].text
     
