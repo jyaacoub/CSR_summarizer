@@ -1,5 +1,11 @@
 # CSR_summarizer
-A tool to extract meaningful information from long CSR reports.
+We utilize the text completion functionality of the OpenAI API to simplify lengthy Corporate Social Responsibility (CSR) reports and extract relevant information.
+
+For this we use the API to create text embeddings for semantic search, and then query the API to get summaries for the most relevant text snippets. The final result is a trace of summaries to a final overall summary. This allows users to quickly gather a high level overview of the report and, if they need to, also follow the trace back to the original text to get the details.
+
+# Video Overview
+
+https://user-images.githubusercontent.com/50300488/201576204-c6d69cfe-1b59-45f9-ab60-f51c52c14629.mp4
 
 
 # file structure
@@ -12,18 +18,3 @@ A tool to extract meaningful information from long CSR reports.
   - `pdf_reader.py`: see below
 - *models*: For all the models that we use in the project
   - `open_ai.py` contains wrapper class for openAPI.
-
-
-# Tasks
-- [ ] `PDFReader` class: to read in PDF and get sections
-  - Get sections from outline metadata
-    - Look for keywords (e.g.: climate, environment, etc...)
-  - If no sections -> scan first few pages for them
-    - No need to do this for the hackathon we will just hardcode this for now
-- [x] `OpenAPI` class: a wrapper class for interatacting with the Open AI models
-  - Specific to our needs of sumarization we will need GPT-3 access
-  - ~~Might need to use a fine-tuned model that emphasizes numbers?~~
-- [ ] `Summarizer` class: uses `OpenAPI` to summarize pdfs
-  - Here is where we might want to create futher subsections from the sections given by `PDFReader`
-  - Keeps track of the summary trace (sort of like this: https://openaipublic.blob.core.windows.net/recursive-book-summ/website/index.html)
-- [ ] `run.py` script: main script for taking in PDFs.
