@@ -105,18 +105,68 @@ class FileSummarizer:
             
         return top_n_chunks
     
-    def summarize_file(self, query=None, capture_all_sections=False):
+    def summarize_file(self, query=None, capture_all_sections=False, inital_max_tokens=57):
         """
         Summarizes the loaded file using OpenAPI
         """
-        top_n_chunks = self.chunk_and_search(query, capture_all_sections)
+        self.query = query
+        self.top_n_chunks = self.chunk_and_search(query, capture_all_sections)
             
-        # TODO: Summarizing the top_n chunks
-        
-        
-        # TODO: Summarizing the sections
-        
-        # TODO: Summarizing the whole file
-        
-        return ''
+        # Summarizing the top_n chunks
+        self.sum_0 = pd.DataFrame(columns=['summary', 'section', 'chunk_no'])
 
+        for _, row in tqdm(self.top_n_chunks.iterrows(), 
+                            total=self.top_n_chunks.shape[0], 
+                            desc="Summarizing chunks"):
+            sum = self.sum_mdl.summarize_text(row['text'], 
+                                    max_resp_tokens=inital_max_tokens, 
+                                    summary_prompt=1, # tl;dr prompt is the best
+                                    bullet_points=False)
+            
+            # adding to the dataframe
+            self.sum_0 = self.sum_0.append({'summary': sum,
+                                    'section': row.section,
+                                    'chunk_no': row.chunk_no}, 
+                                    ignore_index=True)
+        
+        # Summarizing the sections
+        self.sum_1 = pd.DataFrame(columns=['summary', 'section'])
+        for section in tqdm(self.sum_0.section.unique(), desc="Summarizing sections"):
+            # combining all the summaries of the section
+            section_text = self.sum_0[self.sum_0.section == 
+                                      section].summary.str.cat(sep='\n')
+            
+            sum = self.sum_mdl.summarize_text(section_text, 
+                                            max_resp_tokens=inital_max_tokens*2, # doubling max tokens
+                                            summary_prompt=1, # tl;dr prompt is the best
+                                            bullet_points=False)
+            
+            # adding to the dataframe
+            self.sum_1 = self.sum_1.append({'summary': sum,
+                                'section': section}, 
+                                ignore_index=True)
+                
+        # Summarizing the whole file
+        print("Getting final summary...")
+        self.sum_final = self.sum_mdl.summarize_text(self.sum_1.summary.str.cat(sep='\n'),
+                                                max_resp_tokens=inital_max_tokens*4, 
+                                                summary_prompt=1, # tl;dr prompt is the best
+                                                bullet_points=False)
+        print("Done! Final summary:\n\n", self.sum_final)
+        
+        return self.sum_final
+
+    def save_summaries(self, save_path):
+        """
+        Saves the chunked texts and the summaries to a excel file
+        """
+        self.top_n_chunks.to_excel(save_path + 'top_n_chunks.xlsx', index=False)
+        self.sum_0.to_excel(save_path + 'sum_0.xlsx', index=False)
+        self.sum_1.to_excel(save_path + 'sum_1.xlsx', index=False)
+        
+        # saving the final summary as a text file with query
+        with open(save_path + 'sum_final.txt', 'w') as f:
+            f.write("Query: " + self.query + '\n\n')
+            f.write("Summary: \n")
+            f.write(self.sum_final)
+            

@@ -125,12 +125,12 @@ class OpenAPI_summarizer(OpenAPI):
     def __init__(self, api_key:str=API_KEY, token_counter:TokenCounter=None):
         super().__init__(api_key, token_counter)
     
-    def summarize_text(self, text, max_resp_tokens=256, 
-                        summary_prompt=0, bullet_points=False,
+    def summarize_text(self, text, max_resp_tokens=57, 
+                        summary_prompt=1, bullet_points=False,
                         temp=0.7,   
                         top_p=1,           
-                        freq_penalty=0.07, # should stay low to avoid just coming up with unrelated words
-                        pres_penalty=0.2): # increases the number of topics covered in the summary
+                        freq_penalty=0, # should stay low to avoid just coming up with unrelated words
+                        pres_penalty=0): # increases the number of topics covered in the summary
         """        
         Simple function that takes string input and returns a summary of the text via OpenAI's API 
         
@@ -186,15 +186,4 @@ class OpenAPI_summarizer(OpenAPI):
             presence_penalty=pres_penalty   # presence_penalty same as ^ but based on whether they appear in the text so far (increase likelihood of new topics)
             )
         return '-' + response.choices[0].text if bullet_points else response.choices[0].text
-    
-    def summarize_texts(self, texts, max_resp_tokens=256, summary_prompt=0, bullet_points=False,
-                        temperature=0.7,   
-                        top_p=1,           
-                        frequency_penalty=0.07, # should stay low to avoid just coming up with unrelated words
-                        presence_penalty=0.2):
-        """
-        Gets text summaries for multiple documents in a single query for efficiency
-        #TODO: implement this (https://github.com/shyamal-anadkat/eco-faqs/blob/main/faq_gen.py#L54)
-        """
-        pass
     
