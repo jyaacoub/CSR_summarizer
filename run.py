@@ -2,18 +2,21 @@
 from file_parser.sumarizer import FileSummarizer
 from common.constants import GOOGLE_CSR
 
-import pandas as pd
-from tqdm import tqdm
 import os
 import datetime
+# To control logging level for various modules used in the application:
+import logging
+logging.disable(logging.INFO)
+
 
 # %% creating chunks and searching for top matching chunks
-fs = FileSummarizer(GOOGLE_CSR, chunk_size=300, top_n=10)
+fs = FileSummarizer(GOOGLE_CSR, chunk_size=300)
 
 # %%
-final_sum = fs.summarize_file("Energy efficiency, Low-carbon fuels, \
-                  LEED certified, Renewable energy, \
-                  Solar power, Wind power")
+final_sum = fs.summarize_file("Energy efficiency, Low-carbon fuels, LEED certified, Renewable energy, Solar power, Wind power",
+                  summary_size=100, 
+                  top_n=20, 
+                  capture_all_sections=True)
 
 # %% creating folder with timestamp
 newpath = "data/final_summaries/" + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")

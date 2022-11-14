@@ -64,7 +64,8 @@ class OpenAPI_search(OpenAPI):
         Returns:
             list: embedding vector
         """            
-        pbar = tqdm(total=len(snippets), desc=f"Getting embeddings for scores (t<={len(snippets)}s)...")
+        pbar = tqdm(total=len(snippets), 
+                    desc=f"Getting embeddings for scores (t<={len(snippets)}s)")
         # Getting the embeddings
         @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(5))
         def completion_with_backoff(text):

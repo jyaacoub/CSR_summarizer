@@ -23,7 +23,7 @@ from tqdm import tqdm
 
 class FileSummarizer:
     def __init__(self, pdf_path, api_key=API_KEY,
-                        chunk_size=300, top_n=20):
+                        chunk_size=300):
         """
         Main class for summarizing a pdf file
 
@@ -46,12 +46,11 @@ class FileSummarizer:
                                        token_counter=self.tokenizer)
         self.sum_mdl = OpenAPI_summarizer(api_key=api_key,
                                           token_counter=self.tokenizer)
-        self.top_n = top_n
     
     def chunk(self):
         # chunking each section
         self.pdf_chunked = pd.DataFrame(columns=['text', 'section', 'chunk_no'])
-        for section in tqdm(self.pdf_content, desc="Chunking sections..."):
+        for section in tqdm(self.pdf_content, desc="Chunking sections"):
             chunks = self.chunker.chunk_sentence(self.pdf_content[section]['content'])
             # convert to dataframe
             df_section = pd.DataFrame({'text':chunks, 'section':section,
@@ -62,7 +61,7 @@ class FileSummarizer:
 
         self.pdf_chunked.reset_index(drop=True, inplace=True)
         
-    def chunk_and_search(self, query:str, capture_all_sections=False):
+    def chunk_and_search(self, query:str, top_n:int, capture_all_sections=False):
         if not hasattr(self, 'pdf_chunked'):
             self.chunk()
         
@@ -80,7 +79,7 @@ class FileSummarizer:
             # Sort of like in-order traversal of a tree where the branches are the different sections
             sections = list(self.pdf_content.keys())
             top_n_chunks = pd.DataFrame(columns=['text', 'section', 'chunk_no', 'scores'])
-            for n in range(self.top_n):
+            for n in range(top_n):
                 s_idx = n % len(sections)
                 curr_section_name = sections[s_idx]
                 
@@ -101,25 +100,26 @@ class FileSummarizer:
         else:
             # just get the top_n chunks
             top_n_chunks = self.pdf_chunked_scores.sort_values(
-                                            by='scores', ascending=False).head(self.top_n)
+                                            by='scores', ascending=False).head(top_n)
             
         return top_n_chunks
     
-    def summarize_file(self, query=None, capture_all_sections=False, inital_max_tokens=57):
+    def summarize_file(self,  query=None, summary_size=100, 
+                       top_n=20, capture_all_sections=False):
         """
         Summarizes the loaded file using OpenAPI
         """
         self.query = query
-        self.top_n_chunks = self.chunk_and_search(query, capture_all_sections)
+        self.top_n_chunks = self.chunk_and_search(query, top_n, capture_all_sections)
             
         # Summarizing the top_n chunks
         self.sum_0 = pd.DataFrame(columns=['summary', 'section', 'chunk_no'])
 
         for _, row in tqdm(self.top_n_chunks.iterrows(), 
                             total=self.top_n_chunks.shape[0], 
-                            desc="Summarizing chunks"):
+                            desc="0 - Summarizing chunks"):
             sum = self.sum_mdl.summarize_text(row['text'], 
-                                    max_resp_tokens=inital_max_tokens, 
+                                    max_resp_tokens=summary_size, 
                                     summary_prompt=1, # tl;dr prompt is the best
                                     bullet_points=False)
             
@@ -131,13 +131,14 @@ class FileSummarizer:
         
         # Summarizing the sections
         self.sum_1 = pd.DataFrame(columns=['summary', 'section'])
-        for section in tqdm(self.sum_0.section.unique(), desc="Summarizing sections"):
+        for section in tqdm(self.sum_0.section.unique(), 
+                            desc="1 - Summarizing sections"):
             # combining all the summaries of the section
             section_text = self.sum_0[self.sum_0.section == 
                                       section].summary.str.cat(sep='\n')
             
             sum = self.sum_mdl.summarize_text(section_text, 
-                                            max_resp_tokens=inital_max_tokens*2, # doubling max tokens
+                                            max_resp_tokens=summary_size*2, # doubling max tokens
                                             summary_prompt=1, # tl;dr prompt is the best
                                             bullet_points=False)
             
@@ -149,10 +150,10 @@ class FileSummarizer:
         # Summarizing the whole file
         print("Getting final summary...")
         self.sum_final = self.sum_mdl.summarize_text(self.sum_1.summary.str.cat(sep='\n'),
-                                                max_resp_tokens=inital_max_tokens*4, 
+                                                max_resp_tokens=summary_size*4, 
                                                 summary_prompt=1, # tl;dr prompt is the best
                                                 bullet_points=False)
-        print("Done! Final summary:\n\n", self.sum_final)
+        print("Done!\n\nSummary:\n", self.sum_final)
         
         return self.sum_final
 
