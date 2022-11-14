@@ -105,7 +105,7 @@ class FileSummarizer:
         return top_n_chunks
     
     def summarize_file(self,  query=None, summary_size=100, 
-                       top_n=20, capture_all_sections=False):
+                       top_n=20, capture_all_sections=False, **kwargs):
         """
         Summarizes the loaded file using OpenAPI
         """
@@ -121,7 +121,7 @@ class FileSummarizer:
             sum = self.sum_mdl.summarize_text(row['text'], 
                                     max_resp_tokens=summary_size, 
                                     summary_prompt=1, # tl;dr prompt is the best
-                                    bullet_points=False)
+                                    bullet_points=False, **kwargs)
             
             # adding to the dataframe
             self.sum_0 = self.sum_0.append({'summary': sum,
@@ -140,7 +140,7 @@ class FileSummarizer:
             sum = self.sum_mdl.summarize_text(section_text, 
                                             max_resp_tokens=summary_size*2, # doubling max tokens
                                             summary_prompt=1, # tl;dr prompt is the best
-                                            bullet_points=False)
+                                            bullet_points=False, **kwargs)
             
             # adding to the dataframe
             self.sum_1 = self.sum_1.append({'summary': sum,
@@ -152,7 +152,7 @@ class FileSummarizer:
         self.sum_final = self.sum_mdl.summarize_text(self.sum_1.summary.str.cat(sep='\n'),
                                                 max_resp_tokens=summary_size*4, 
                                                 summary_prompt=1, # tl;dr prompt is the best
-                                                bullet_points=False)
+                                                bullet_points=False, **kwargs)
         print("Done!\n\nSummary:\n", self.sum_final)
         
         return self.sum_final
