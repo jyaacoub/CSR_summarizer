@@ -1,5 +1,5 @@
 # CSR_summarizer
-We utilize the text completion functionality of the OpenAI API to simplify lengthy CSR reports and extract relevant information.
+We utilize the text completion functionality of the OpenAI API to simplify lengthy Corporate Social Responsibility (CSR) reports and extract relevant information.
 
 For this we use the API to create text embeddings for semantic search, and then query the API to get summaries for the most relevant text snippets. The final result is a trace of summaries to a final overall summary. This allows users to quickly gather a high level overview of the report and, if they need to, also follow the trace back to the original text to get the details.
 
